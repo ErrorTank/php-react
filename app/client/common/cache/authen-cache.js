@@ -23,7 +23,7 @@ export const authenCache = (() => {
                 if (!authen) {
                     reject();
                 } else {
-                    return Promise.resolve();
+                    resolve();
 
                 }
             });
