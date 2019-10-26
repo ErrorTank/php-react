@@ -1,13 +1,11 @@
-CREATE TABLE IF NOT EXISTS `product` (
-    `product_id` INT(11) NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(32) NOT NULL,
-    `description` TEXT NOT NULL,
-    `price` FLOAT(10,2) NOT NULL DEFAULT 0.00,
-    `category_id` INT(11) NOT NULL,
-    `date_upd` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `date_add` DATETIME NOT NULL,
-    PRIMARY KEY (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT = 65;
+CREATE TABLE `tuyendung`.`Account` ( `accountID` NVARCHAR(10) NOT NULL ,  `username` NVARCHAR(50) NOT NULL , `password` NVARCHAR(50) NOT NULL , `role` INT(11) NOT NULL , `canLogin` BOOLEAN NOT NULL , PRIMARY KEY (`accountID`), UNIQUE (`username`)) ENGINE = InnoDB;
+
+CREATE TABLE `tuyendung`.`Candidate` ( `candidateID` NVARCHAR(10) NOT NULL ,  `email` NVARCHAR(50) NOT NULL ,`fullname` NVARCHAR(50) NOT NULL , `address` NVARCHAR(200) NULL , `phone` NVARCHAR(50) NULL , `label` NVARCHAR(200) NOT NULL, `desiredLevel` NVARCHAR(100) not null , `experimentTime` int(2) not null, `selfLevel` NVARCHAR(10) not null, `workType` enum(`fulltime` , `parttime`), `selfTarget` NVARCHAR(200), `selfSkill` NVARCHAR(200),  `accountID` NVARCHAR(10) NOT NULL , `dob` DATETIME NOT NULL , `salaryStart` INT(100) NOT null, `salaryEnd` INT(100) NOT null, `gender` INT(1) NOT NULL , PRIMARY KEY (`candidateID`), UNIQUE (`phone`), UNIQUE (`accountID`), UNIQUE (`email`)) ENGINE = InnoDB;
+
+CREATE TABLE `tuyendung`.`Company` ( `companyID` NVARCHAR(10) NOT NULL , `companyName` NVARCHAR(100) NOT NULL , `address` NVARCHAR(200) NULL , `phone` NVARCHAR(50) NULL , `email` NVARCHAR(50) NOT NULL, `description` NVARCHAR(200) NOT NULL,  PRIMARY KEY (`companyID`), UNIQUE (`phone`), UNIQUE (`accountID`), UNIQUE (`email`)) ENGINE = InnoDB;
+
+CREATE TABLE `tuyendung`.`Territory` ( `territoryID` NVARCHAR(10) NOT NULL , `label` NVARCHAR(100) NOT NULL , PRIMARY KEY (`territoryID`)) ENGINE = InnoDB;
+CREATE TABLE `tuyendung`.`WorkingPlace` ( `wpID` NVARCHAR(10) NOT NULL , `label` NVARCHAR(100) NOT NULL , PRIMARY KEY (`wpID`)) ENGINE = InnoDB;
 
 INSERT INTO `product` (`product_id`, `name`, `description`, `price`, `category_id`, `date_upd`, `date_add`) VALUES
 (1, 'LG P880 4X HD', 'My first awesome phone!', '336', 3, '2019-06-01 01:12:26', '2019-05-31 17:12:26'),
