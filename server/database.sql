@@ -1,44 +1,17 @@
 CREATE TABLE `tuyendung`.`Account` ( `accountID` NVARCHAR(10) NOT NULL ,  `username` NVARCHAR(50) NOT NULL , `password` NVARCHAR(50) NOT NULL , `role` INT(11) NOT NULL , `canLogin` BOOLEAN NOT NULL , PRIMARY KEY (`accountID`), UNIQUE (`username`)) ENGINE = InnoDB;
 
-CREATE TABLE `tuyendung`.`Candidate` ( `candidateID` NVARCHAR(10) NOT NULL ,  `email` NVARCHAR(50) NOT NULL ,`fullname` NVARCHAR(50) NOT NULL , `address` NVARCHAR(200) NULL , `phone` NVARCHAR(50) NULL , `label` NVARCHAR(200) NOT NULL, `desiredLevel` NVARCHAR(100) not null , `experimentTime` int(2) not null, `selfLevel` NVARCHAR(10) not null, `workType` enum(`fulltime` , `parttime`), `selfTarget` NVARCHAR(200), `selfSkill` NVARCHAR(200),  `accountID` NVARCHAR(10) NOT NULL , `dob` DATETIME NOT NULL , `salaryStart` INT(100) NOT null, `salaryEnd` INT(100) NOT null, `gender` INT(1) NOT NULL , PRIMARY KEY (`candidateID`), UNIQUE (`phone`), UNIQUE (`accountID`), UNIQUE (`email`)) ENGINE = InnoDB;
+CREATE TABLE `tuyendung`.`Candidate` ( `candidateID` NVARCHAR(10) NOT NULL ,  `email` NVARCHAR(50) NOT NULL ,`fullname` NVARCHAR(50) NOT NULL , `address` NVARCHAR(200) NULL , `phone` NVARCHAR(50) NULL , `label` NVARCHAR(200) NOT NULL, `desiredLevel` NVARCHAR(10) not null , `experimentTime` int(2) not null, `selfLevel` NVARCHAR(10) not null, `workType` enum(`fulltime` , `parttime`), `selfTarget` NVARCHAR(200), `selfSkill` NVARCHAR(200),  `accountID` NVARCHAR(10) NOT NULL , `dob` DATETIME NOT NULL , `salaryStart` INT(100) NOT null, `salaryEnd` INT(100) NOT null, `gender` INT(1) NOT NULL , PRIMARY KEY (`candidateID`), UNIQUE (`phone`), UNIQUE (`accountID`), UNIQUE (`email`)) ENGINE = InnoDB;
 
 CREATE TABLE `tuyendung`.`Company` ( `companyID` NVARCHAR(10) NOT NULL , `companyName` NVARCHAR(100) NOT NULL , `address` NVARCHAR(200) NULL , `phone` NVARCHAR(50) NULL , `email` NVARCHAR(50) NOT NULL, `description` NVARCHAR(200) NOT NULL,  PRIMARY KEY (`companyID`), UNIQUE (`phone`), UNIQUE (`accountID`), UNIQUE (`email`)) ENGINE = InnoDB;
 
+CREATE TABLE `tuyendung`.`Job` ( `jobID` NVARCHAR(10) NOT NULL , `label` NVARCHAR(100) NOT NULL , `salaryStart` INT(100) NOT null, `salaryEnd` INT(100) NOT null, `owner` nvarchar(10) not null ,deadline DATETIME not null, `requiredExperiment` int(2) not null,  `requiredLevel`  nvarchar(10) not null, quantity int(3) not null, `workType` enum(`fulltime` , `parttime`), `desiredLevel` nvarchar(10) not null, `requiredGender` int(1) not null, `description` nvarchar(200) not null, `priority` nvarchar(200) not null,  `jobRequired` nvarchar(200) not null, `itemRequired` nvarchar(200) not null, `contact` nvarchar(200) not null  ,PRIMARY KEY (`jobID`) , unique (`jobID`)) ENGINE = InnoDB;
+
 CREATE TABLE `tuyendung`.`Territory` ( `territoryID` NVARCHAR(10) NOT NULL , `label` NVARCHAR(100) NOT NULL , PRIMARY KEY (`territoryID`)) ENGINE = InnoDB;
-CREATE TABLE `tuyendung`.`WorkingPlace` ( `wpID` NVARCHAR(10) NOT NULL , `label` NVARCHAR(100) NOT NULL , PRIMARY KEY (`wpID`)) ENGINE = InnoDB;
-
-INSERT INTO `product` (`product_id`, `name`, `description`, `price`, `category_id`, `date_upd`, `date_add`) VALUES
-(1, 'LG P880 4X HD', 'My first awesome phone!', '336', 3, '2019-06-01 01:12:26', '2019-05-31 17:12:26'),
-(2, 'Google Nexus 4', 'The most awesome phone of 2013!', '299', 2, '2019-06-01 01:12:26', '2019-05-31 17:12:26'),
-(3, 'Samsung Galaxy S4', 'How about no?', '600', 3, '2019-06-01 01:12:26', '2019-05-31 17:12:26'),
-(6, 'Bench Shirt', 'The best shirt!', '29', 1, '2019-06-01 01:12:26', '2019-05-31 02:12:21'),
-(7, 'Lenovo Laptop', 'My business partner.', '399', 2, '2019-06-01 01:13:45', '2019-05-31 02:13:39'),
-(8, 'Samsung Galaxy Tab 10.1', 'Good tablet.', '259', 2, '2019-06-01 01:14:13', '2019-05-31 02:14:08'),
-(9, 'Spalding Watch', 'My sports watch.', '199', 1, '2019-06-01 01:18:36', '2019-05-31 02:18:31'),
-(10, 'Sony Smart Watch', 'The coolest smart watch!', '300', 2, '2019-06-06 17:10:01', '2019-06-05 18:09:51'),
-(11, 'Huawei Y300', 'For testing purposes.', '100', 2, '2019-06-06 17:11:04', '2019-06-05 18:10:54'),
-(12, 'Abercrombie Lake Arnold Shirt', 'Perfect as gift!', '60', 1, '2019-06-06 17:12:21', '2019-06-05 18:12:11'),
-(13, 'Abercrombie Allen Brook Shirt', 'Cool red shirt!', '70', 1, '2019-06-06 17:12:59', '2019-06-05 18:12:49'),
-(26, 'Another product', 'Awesome product!', '555', 2, '2019-11-22 19:07:34', '2019-11-21 20:07:34'),
-(28, 'Wallet', 'You can absolutely use this one!', '799', 6, '2019-12-04 21:12:03', '2019-12-03 22:12:03'),
-(31, 'Amanda Waller Shirt', 'New awesome shirt!', '333', 1, '2019-12-13 00:52:54', '2019-12-12 01:52:54'),
-(42, 'Nike Shoes for Men', 'Nike Shoes', '12999', 3, '2015-12-12 06:47:08', '2015-12-12 05:47:08'),
-(48, 'Bristol Shoes', 'Awesome shoes.', '999', 5, '2016-01-08 06:36:37', '2016-01-08 05:36:37'),
-(60, 'Rolex Watch', 'Luxury watch.', '25000', 1, '2016-01-11 15:46:02', '2016-01-11 14:46:02');
-
-CREATE TABLE IF NOT EXISTS `category` (
- 	`category_id` INT(11) NOT NULL AUTO_INCREMENT,
-  	`name` VARCHAR(255) NOT NULL,
-  	`description` TEXT NOT NULL,
-	`date_upd` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `date_add` DATETIME NOT NULL,
-  PRIMARY KEY (`category_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19;
-
-INSERT INTO `category` (`category_id`, `name`, `description`, `date_upd`, `date_add`) VALUES
-(1, 'Fashion', 'Category for anything related to fashion.', '2019-06-01 00:35:07', '2019-05-30 17:34:33'),
-(2, 'Electronics', 'Gadgets, drones and more.', '2019-06-01 00:35:07', '2019-05-30 17:34:33'),
-(3, 'Motors', 'Motor sports and more', '2019-06-01 00:35:07', '2019-05-30 17:34:54'),
-(5, 'Movies', 'Movie products.', '0000-00-00 00:00:00', '2016-01-08 13:27:26'),
-(6, 'Books', 'Kindle books, audio books and more.', '0000-00-00 00:00:00', '2016-01-08 13:27:47'),
-(13, 'Sports', 'Drop into new winter gear.', '2016-01-09 02:24:24', '2016-01-09 01:24:24');
+CREATE TABLE `tuyendung`.`WorkingPlace` ( `wpID` NVARCHAR(10) NOT NULL , `label` NVARCHAR(100) NOT NULL , PRIMARY KEY (`wpID`), UNIQUE (`wpID`)) ENGINE = InnoDB;
+CREATE TABLE `tuyendung`.`Experiment` ( `experimentID` NVARCHAR(10) NOT NULL , `label` NVARCHAR(100) NOT NULL , `startDate` DATETIME not null, `endDate` DATETIME not null, `owner` NVARCHAR(10) not null , companyName NVARCHAR(200) not null, description NVARCHAR(200) not null  ,PRIMARY KEY (`experimentID`)) ENGINE = InnoDB;
+CREATE TABLE `tuyendung`.`TerritoryCandidate` ( `teCa` NVARCHAR(10) NOT NULL , `candidateID` NVARCHAR(10) NOT NULL , `territoryID` NVARCHAR(10) NOT NULL , PRIMARY KEY (`teCa`), UNIQUE (`teCa`)) ENGINE = InnoDB;
+CREATE TABLE `tuyendung`.`TerritoryCompany` ( `teCo` NVARCHAR(10) NOT NULL , `companyID` NVARCHAR(10) NOT NULL , `territoryID` NVARCHAR(10) NOT NULL , PRIMARY KEY (`teCo`), UNIQUE (`teCo`)) ENGINE = InnoDB;
+CREATE TABLE `tuyendung`.`PlaceCandidate` ( `wpCa` NVARCHAR(10) NOT NULL , `candidateID` NVARCHAR(10) NOT NULL , `wpID` NVARCHAR(10) NOT NULL , PRIMARY KEY (`wpCa`), UNIQUE (`wpCa`)) ENGINE = InnoDB;
+CREATE TABLE `tuyendung`.`TerritoryCompany` ( `wpCo` NVARCHAR(10) NOT NULL , `companyID` NVARCHAR(10) NOT NULL , `wpID` NVARCHAR(10) NOT NULL , PRIMARY KEY (`wpCo`), UNIQUE (`wpCo`)) ENGINE = InnoDB;
+CREATE TABLE `tuyendung`.`Level` ( `levelID` NVARCHAR(10) NOT NULL, `label` nvarchar(100) not null  , PRIMARY KEY (`levelID`), UNIQUE (`levelID`)) ENGINE = InnoDB;
+CREATE TABLE `tuyendung`.`desiredLevel` ( `dlID` NVARCHAR(10) NOT NULL, `label` nvarchar(100) not null  , PRIMARY KEY (`dlID`), UNIQUE (`dlID`)) ENGINE = InnoDB;

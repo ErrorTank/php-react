@@ -30,17 +30,17 @@ class DbMySQLi extends DbMySQLiCore {};
 /** CORS Middleware */
 $config = array(
 	/** MySQL database name */
-	'database_name' => 'rest_api',
+	'database_name' => 'tuyendung',
 	/** MySQL hostname */
 	'database_host' => 'localhost',
 	/** MySQL database username */
 	'database_user' => 'root',
 	/** MySQL database password */ 
-	'database_password' => 'password',
+	'database_password' => '',
 	/** MySQL Database Table prefix. */
 	'database_prefix' => '',
 	/** preferred database */
-	'database_engine' => 'DbPDO',
+	'database_engine' => 'InnoDB',
 	/** API CORS */
 	'cors' => [
 		'enabled' => true,
