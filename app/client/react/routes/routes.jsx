@@ -4,7 +4,9 @@ import {createBrowserHistory} from 'history';
 import {ModalsRegistry} from "../common/modal/modals";
 import {WithLocationRoute} from "./route-types/with-location-route";
 import {AuthenRoute, GuestRoute} from "./route-types/authen-routes";
-import {HomeRoute} from "./guest-routes/home-route/home-route";
+import {HomeRoute} from "./common-routes/home-route/home-route";
+import {CandidateRoute} from "./common-routes/candidate-route/candidate-route";
+import {CompanyRoute} from "./common-routes/company-route/company-route";
 export const customHistory = createBrowserHistory();
 
 
@@ -24,6 +26,8 @@ export class MainRoute extends React.Component {
                 >
                     <Switch>
                         <WithLocationRoute exact path="/" render={props => (<HomeRoute {...props}/>)}/>
+                        <WithLocationRoute exact path="/ung-vien" render={props => (<CandidateRoute {...props}/>)}/>
+                        <WithLocationRoute exact path="/cong-ty" render={props => (<CompanyRoute {...props}/>)}/>
                     </Switch>
                 </Router>
 

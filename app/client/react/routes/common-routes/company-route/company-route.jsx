@@ -1,8 +1,10 @@
+
 import React from "react";
 import {PageTitle} from "../../../common/page-title/page-title";
 import {MainLayout} from "../../../layout/main-layout/main-layout";
+import {AppMainSearch} from "../../../common/app-main-search/app-main-search";
 
-export class HomeRoute extends React.Component{
+export class CompanyRoute extends React.Component{
     constructor(props){
         super(props);
         this.state={
@@ -11,11 +13,12 @@ export class HomeRoute extends React.Component{
     render(){
         return(
             <PageTitle
-                title={`Tìm kiếm việc làm`}
+                title={`Tìm kiếm công ty`}
             >
                 <MainLayout>
-                    <div className="home-route">
+                    <div className="candidate-route">
                         <div className="container">
+                            <AppMainSearch/>
                         </div>
                     </div>
                 </MainLayout>
