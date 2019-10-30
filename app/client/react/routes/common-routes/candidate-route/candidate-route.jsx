@@ -16,8 +16,9 @@ export class CandidateRoute extends React.Component{
             >
                 <MainLayout>
                     <div className="candidate-route">
+                        <AppMainSearch/>
                         <div className="container">
-                            <AppMainSearch/>
+
                         </div>
                     </div>
                 </MainLayout>

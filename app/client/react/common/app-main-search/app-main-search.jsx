@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import classnames from "classnames"
 import {customHistory} from "../../routes/routes";
+import {CommonInput} from "../common-input/common-input";
 
 class FullOptionSearch extends Component{
     constructor(props) {
@@ -13,8 +14,27 @@ class FullOptionSearch extends Component{
     }
 
     render() {
+        let {keyword, territory, workPlace} = this.state;
         return (
             <div className="full-option-search">
+                <div className="input-wrapper">
+                    <div className="filter f-input">
+                        <CommonInput
+                            value={keyword}
+                            onChange={e => this.setState({keyword: e.target.value})}
+                            placeholder={this.props.placeholder}
+                        />
+                    </div>
+                    <div className="filter f-select">
+
+                    </div>
+                    <div className="filter f-select">
+
+                    </div>
+                    <button className="filter f-action btn">
+                        Tìm kiếm
+                    </button>
+                </div>
 
             </div>
         )
@@ -49,7 +69,7 @@ export class AppMainSearch extends Component {
             render: () => {
                 return (
                     <FullOptionSearch
-                        placeholder={"Tên công việc"}
+                        placeholder={"Tìm bằng tên công việc"}
                     />
                 )
             }
@@ -60,14 +80,14 @@ export class AppMainSearch extends Component {
             render: () => {
                 return (
                     <FullOptionSearch
-                        placeholder={"Tên ứng viên"}
+                        placeholder={"Tìm bằng tên ứng viên"}
                     />
                 )
             }
         },
         {
             url: "/cong-ty",
-            label: "Tìm công ty",
+            label: "Tìm bằng tên công ty",
             render: () => {
                 return (
                     <CompanySearch/>
@@ -92,6 +112,7 @@ export class AppMainSearch extends Component {
                         </div>
                         <div className="search-wrapper">
                             {currentSearch.render()}
+                            <p className="summary"></p>
                         </div>
                     </div>
 
