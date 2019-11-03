@@ -2,39 +2,60 @@ import React, {Component} from 'react';
 import classnames from "classnames"
 import {customHistory} from "../../routes/routes";
 import {CommonInput} from "../common-input/common-input";
+import {Select} from "../select/select";
+import {cities} from "../city";
+import {territories} from "../territory";
 
 class FullOptionSearch extends Component{
     constructor(props) {
         super(props);
         this.state = {
             keyword: "",
-            territory: null,
-            workPlace: null
+            territory: "",
+            workPlace: ""
         };
     }
 
     render() {
+
         let {keyword, territory, workPlace} = this.state;
+
         return (
-            <div className="full-option-search">
-                <div className="input-wrapper">
-                    <div className="filter f-input">
-                        <CommonInput
-                            value={keyword}
-                            onChange={e => this.setState({keyword: e.target.value})}
-                            placeholder={this.props.placeholder}
-                        />
-                    </div>
-                    <div className="filter f-select">
-
-                    </div>
-                    <div className="filter f-select">
-
-                    </div>
-                    <button className="filter f-action btn">
-                        Tìm kiếm
-                    </button>
+            <div className="app-search">
+                <div className="filter f-input">
+                    <CommonInput
+                        value={keyword}
+                        onChange={e => this.setState({keyword: e.target.value})}
+                        placeholder={this.props.placeholder}
+                    />
                 </div>
+                <div className="filter f-select">
+                    <Select
+                        options={cities}
+                        value={workPlace}
+                        displayAs={(each) => each.name}
+                        getValue={each => each.key}
+                        onChange={e => {
+                            this.setState({workPlace: e.target.value})
+                        }}
+                    />
+                </div>
+                <div className="filter f-select">
+                    <Select
+                        options={territories}
+                        value={territory}
+                        displayAs={(each) => each.name}
+                        getValue={each => each.key}
+                        onChange={e => {
+                            this.setState({territory: e.target.value})
+                        }}
+                    />
+                </div>
+                <button className="filter f-action btn"
+                        onClick={() => this.props.onSearch(this.state)}
+                >
+                    Tìm kiếm
+                </button>
 
             </div>
         )
@@ -48,8 +69,21 @@ class CompanySearch extends Component{
         };
     }
     render() {
+        let {keyword} = this.state;
         return (
-            <div className="company-search">
+            <div className="app-search">
+                <div className="filter f-input company-search">
+                    <CommonInput
+                        value={keyword}
+                        onChange={e => this.setState({keyword: e.target.value})}
+                        placeholder={this.props.placeholder}
+                    />
+                </div>
+                <button className="filter f-action btn"
+                        onClick={() => this.props.onSearch(this.state)}
+                >
+                    Tìm kiếm
+                </button>
 
             </div>
         )
@@ -70,6 +104,8 @@ export class AppMainSearch extends Component {
                 return (
                     <FullOptionSearch
                         placeholder={"Tìm bằng tên công việc"}
+                        onSearch={this.props.onSearch}
+                        total={this.props.total}
                     />
                 )
             }
@@ -81,6 +117,8 @@ export class AppMainSearch extends Component {
                 return (
                     <FullOptionSearch
                         placeholder={"Tìm bằng tên ứng viên"}
+                        onSearch={this.props.onSearch}
+                        total={this.props.total}
                     />
                 )
             }
@@ -90,7 +128,11 @@ export class AppMainSearch extends Component {
             label: "Tìm bằng tên công ty",
             render: () => {
                 return (
-                    <CompanySearch/>
+                    <CompanySearch
+                        placeholder={"Tìm bằng tên công ty"}
+                        onSearch={this.props.onSearch}
+                        total={this.props.total}
+                    />
                 )
             }
         },

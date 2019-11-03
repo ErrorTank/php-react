@@ -1,4 +1,4 @@
-.full-option-search{
+.app-search{
   .filter{
     display inline-block
     vertical-align top
@@ -16,9 +16,15 @@
     border 2px solid white
     color white
     background-color transparent
+    &:hover{
+      background-color lighten(#0080b7, 10%) !important
+    }
   }
   .f-input{
     width 46%
+    &.company-search{
+      width 86%
+    }
     margin-right 2%
   }
 }

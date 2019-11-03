@@ -12,10 +12,6 @@ export class Navbar extends React.Component {
         this.state = {};
     };
 
-    handleSignout = () => {
-        userInfo.setState(null);
-        authenCache.clearAuthen();
-    };
 
     navs = [
         {
@@ -29,18 +25,18 @@ export class Navbar extends React.Component {
             label: "CÔNG TY",
             url: "/cong-ty"
         },
-        {
-            label: "TÀI KHOẢN",
-            dropdownItems: [
-                {
-                    label: "Ứng viên",
-                    url: "/dang-nhap/ung-vien",
-                }, {
-                    label: "Nhà tuyển dụng",
-                    url: "/dang-nhap/nha-tuyen-dung",
-                },
-            ]
-        },
+        // {
+        //     label: "TÀI KHOẢN",
+        //     dropdownItems: [
+        //         {
+        //             label: "Ứng viên",
+        //             url: "/dang-nhap/ung-vien",
+        //         }, {
+        //             label: "Nhà tuyển dụng",
+        //             url: "/dang-nhap/nha-tuyen-dung",
+        //         },
+        //     ]
+        // },
 
     ];
 

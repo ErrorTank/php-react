@@ -1,12 +1,4 @@
-CREATE TABLE `tuyendung`.`Account`(
-    `accountID` NVARCHAR(10) NOT NULL,
-    `username` NVARCHAR(50) NOT NULL,
-    `password` NVARCHAR(50) NOT NULL,
-    `role` INT(11) NOT NULL,
-    `canLogin` BOOLEAN NOT NULL,
-    PRIMARY KEY(`accountID`),
-    UNIQUE(`username`)
-) ENGINE = INNODB;
+
 CREATE TABLE `tuyendung`.`Candidate`(
     `candidateID` NVARCHAR(10) NOT NULL,
     `email` NVARCHAR(50) NOT NULL,
@@ -20,14 +12,14 @@ CREATE TABLE `tuyendung`.`Candidate`(
     `workType` ENUM('fulltime', 'parttime'),
     `selfTarget` NVARCHAR(200),
     `selfSkill` NVARCHAR(200),
-    `accountID` NVARCHAR(10) NOT NULL,
+    `avatar` NVARCHAR(200),
     `dob` DATETIME NOT NULL,
     `salaryStart` INT(100) NOT NULL,
     `salaryEnd` INT(100) NOT NULL,
     `gender` INT(1) NOT NULL,
     PRIMARY KEY(`candidateID`),
     UNIQUE(`phone`),
-    UNIQUE(`accountID`),
+
     UNIQUE(`email`)
 ) ENGINE = INNODB;
 CREATE TABLE `tuyendung`.`Company`(
@@ -35,6 +27,7 @@ CREATE TABLE `tuyendung`.`Company`(
     `companyName` NVARCHAR(100) NOT NULL,
     `address` NVARCHAR(200) NULL,
     `phone` NVARCHAR(50) NULL,
+    `avatar` NVARCHAR(200),
     `email` NVARCHAR(50) NOT NULL,
     `description` NVARCHAR(200) NOT NULL,
     PRIMARY KEY(`companyID`),
