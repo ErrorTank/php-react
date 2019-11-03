@@ -3,13 +3,13 @@ import {apiFactory} from "./api-factory/api-config";
 
 
 const authenApiConfig = {
-    hostURL: "http://localhost:10000/api",
+    hostURL: "http://localhost/php-react/server/api",
 
 
 };
 
 const offlineApiConfig = {
-    hostURL: "http://localhost:10000/api"
+    hostURL: "http://localhost/php-react/server/api"
 };
 
 

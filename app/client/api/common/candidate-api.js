@@ -15,7 +15,7 @@ export const candidateApi = {
             sortValue: value,
             keyword: keyword || null
         };
-        return offlineApi.get(`/candidates${urlUtils.buildParams(params)}`)
+        return offlineApi.get(`/candidate/all.php${urlUtils.buildParams(params)}`)
     },
 
 };

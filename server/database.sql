@@ -26,10 +26,10 @@ CREATE TABLE `tuyendung`.`Company`(
     `companyID` NVARCHAR(10) NOT NULL,
     `companyName` NVARCHAR(100) NOT NULL,
     `address` NVARCHAR(200) NULL,
-    `phone` NVARCHAR(50) NULL,
     `avatar` NVARCHAR(200),
+    `phone` NVARCHAR(50) NULL,
     `email` NVARCHAR(50) NOT NULL,
-    `description` NVARCHAR(200) NOT NULL,
+    `description` NVARCHAR(300) NOT NULL,
     PRIMARY KEY(`companyID`),
     UNIQUE(`phone`),
     UNIQUE(`companyID`),
@@ -60,7 +60,8 @@ CREATE TABLE `tuyendung`.`Territory`(
     `territoryID` NVARCHAR(10) NOT NULL,
     `label` NVARCHAR(100) NOT NULL,
     PRIMARY KEY(`territoryID`)
-) ENGINE = INNODB; CREATE TABLE `tuyendung`.`WorkingPlace`(
+) ENGINE = INNODB;
+CREATE TABLE `tuyendung`.`WorkingPlace`(
     `wpID` NVARCHAR(10) NOT NULL,
     `label` NVARCHAR(100) NOT NULL,
     PRIMARY KEY(`wpID`),
@@ -83,12 +84,12 @@ CREATE TABLE `tuyendung`.`TerritoryCandidate`(
     PRIMARY KEY(`teCa`),
     UNIQUE(`teCa`)
 ) ENGINE = INNODB;
-CREATE TABLE `tuyendung`.`TerritoryCompany`(
-    `teCo` NVARCHAR(10) NOT NULL,
-    `companyID` NVARCHAR(10) NOT NULL,
+CREATE TABLE `tuyendung`.`TerritoryJob`(
+    `teJo` NVARCHAR(10) NOT NULL,
+    `jobID` NVARCHAR(10) NOT NULL,
     `territoryID` NVARCHAR(10) NOT NULL,
-    PRIMARY KEY(`teCo`),
-    UNIQUE(`teCo`)
+    PRIMARY KEY(`teJo`),
+    UNIQUE(`teJo`)
 ) ENGINE = INNODB;
 CREATE TABLE `tuyendung`.`PlaceCandidate`(
     `wpCa` NVARCHAR(10) NOT NULL,
@@ -97,12 +98,12 @@ CREATE TABLE `tuyendung`.`PlaceCandidate`(
     PRIMARY KEY(`wpCa`),
     UNIQUE(`wpCa`)
 ) ENGINE = INNODB;
-CREATE TABLE `tuyendung`.`PlaceCompany`(
-    `wpCo` NVARCHAR(10) NOT NULL,
-    `companyID` NVARCHAR(10) NOT NULL,
+CREATE TABLE `tuyendung`.`PlaceJob`(
+    `peJo` NVARCHAR(10) NOT NULL,
+    `jobID` NVARCHAR(10) NOT NULL,
     `wpID` NVARCHAR(10) NOT NULL,
-    PRIMARY KEY(`wpCo`),
-    UNIQUE(`wpCo`)
+    PRIMARY KEY(`peJo`),
+    UNIQUE(`peJo`)
 ) ENGINE = INNODB;
 CREATE TABLE `tuyendung`.`Level`(
     `levelID` NVARCHAR(10) NOT NULL,
@@ -116,3 +117,38 @@ CREATE TABLE `tuyendung`.`desiredLevel`(
     PRIMARY KEY(`dlID`),
     UNIQUE(`dlID`)
 ) ENGINE = INNODB;
+INSERT INTO `Level` (`levelID`,`label`) VALUES ('0', 'Cao đẳng'),('1', 'Trung học cơ sở'),('2', 'Trung học phổ thông'),('3', 'Cử nhân'),('4', 'Thạc sĩ'),('5', 'Tiến sĩ')
+INSERT INTO `desiredLevel` (`dlID`,`label`) VALUES ('0', 'Nhân viên'),('1', 'Quản lý'),('2', 'Giám đốc')
+INSERT INTO `Territory` (`territoryID`, `label`) VALUES ('0', 'Bán hàng'), ('1', 'Bảo hiểm'), ('2', 'An ninh'), ('3', 'Cơ khí - Chế tạo'), ('4', 'Dịch vụ'), ('5', 'Du lịch'), ('6', 'Bất động sản'), ('7', 'Điện tử'), ('8', 'IT phần mềm'), ('9', 'Marketing'), ('10', 'Kinh doanh'), ('11', 'Thiết kế'), ('12', 'Đồ họa'), ('13', 'Sư phạm')
+INSERT INTO `WorkingPlace` (`wpID`,`label`) VALUES ('0', 'Thành phố Cần Thơ'),('1', 'Thành phố Đà Nẵng'), ('2', 'Thành phố Hà Nội'), ('3', 'Thành phố Hải Phòng'), ('4', 'Thành phố Hồ Chí Minh'), ('5', 'Tỉnh An Giang'), ('6', 'Tỉnh Bà Rịa-Vũng Tàu'), ('7', 'Tỉnh Bắc Giang'), ('8', 'Tỉnh Bạc Liêu'), ('9', 'Tỉnh Bắc Ninh'), ('10', 'Tỉnh Bình Dương'), ('11', 'Tỉnh Hải Dương'), ('12', 'Tỉnh Khánh Hòa'), ('13', 'Tỉnh Thái Bình'), ('14', 'Tỉnh Thanh Hóa')
+INSERT INTO `Company` (`companyID` ,
+                           `companyName`,
+                           `address` ,
+                           `avatar` ,
+                           `phone`,
+                           `email` ,
+                           `description`) VALUES ('0', 'Công ty TRIBECO Bình Dương', "Sô 8, đường số 11, KCN Việt Nam-Singapore, Thuận An, BD", "xLzeyG7roqyQLV9cePRj1478UhxDbgch4fXgx4hR.png", "023121", "ok1@gmail.com", "Công ty TNHH TRIBECO Bình Dương – 100% vốn nước ngoài (trực thuộc tập đoàn Uni-President Đài Loan) là một trong những doanh nghiệp sản xuất và kinh doanh nước giải khát và bán buôn thực phẩm hàng đầu Việt Nam."), ('1', 'TỔNG CÔNG TY CHUYỂN PHÁT NHANH BƯU ĐIỆN', " Số 01 Đường Tân Xuân, Phường Xuân Đỉnh, Quận Bắc Từ Liêm, TP. Hà Nội", "PYKTM3yshPpt6K05NW3rYONZqxhjQvl4kXRoiOeS.png", "0231221", "ok2@gmail.com", "Tổng công ty Chuyển phát nhanh Bưu điện - Công ty Cổ phần được thành lập theo quyết định phê duyệt đề án số 29/QĐ-ĐABC-HĐQT ngày 24 tháng 1 năm 2005 của Hội đồng Quản trị Tổng công ty Bưu chính Viễn thông Việt Nam."),('2', 'Đức Trung Group', "Số 120 Nguyễn Thái Học, Phường Điện Biên, Quận Ba Đình, Thành phố Hà Nội", "e76e8e0788fc.jpg", "02312212", "ok3@gmail.com", "TẬP ĐOÀN ĐỨC TRUNG được thành lập từ năm 1994 với chiến lược kinh doanh:”Nhập khẩu trực tiếp - Phân phối độc quyền – Giá cả cạnh tranh – Sản phẩm chất lượng”. "),('3', 'CÔNG TY CỔ PHẦN JESCO ASIA', " Lầu 10-11, số 60 Trường Sơn, p2, q.Tân Bình", "8bc038b595ce.jpg", "04312212", "ok4@gmail.com", "Công ty cổ phần JESCO ASIA có tiền thân là công ty trách nhiệm hữu hạn JESCO SE Việt Nam – được thành lập vào tháng 10 năm 2001 "),('4', 'Công ty Tài chính TNHH MTV Home Credit Việt Nam', "Tòa nhà Phụ Nữ, số 20 Nguyễn Đăng Giai, Phường Thảo Điền, Quận 02, Tp.HCM", "3b026b3e1da3.png", "04312252", "ok5@gmail.com", "Home Credit Việt Nam là một đơn vị trực thuộc tập đoàn Home Credit B.V, một trong những tập đoàn cung cấp dịch vụ tài chính hàng đầu châu Âu và đang phát triển mạnh mẽ tại thị trường châu Á"),('5', 'Công ty TNHH Tân Mỹ', "Số 122 Phố Hoàng Ngân - Phường Trung Hoà - Quận Cầu Giấy - Thành Phố Hà Nội - Việt Nam", "7367522882e5.jpg", "04312552", "ok6@gmail.com", "Công ty TNHH Tân Mỹ được thành lập ngày 26 tháng 05 năm 1999, với tiêu chí lấy chất lượng sản phẩm, tinh thần phục vụ khách hàng và uy tín trong kinh doanh làm nền tảng cho sự phát triển của Công ty")
+                           INSERT INTO `Candidate` (`candidateID` ,
+                                                      `email`,
+                                                      `fullname` ,
+                                                      `address` ,
+                                                      `phone`,
+                                                      `label` ,
+                                                      `desiredLevel`,
+                                                      `experimentTime`,
+                                                          `selfLevel`,
+                                                          `workType`,
+                                                          `selfTarget`,
+                                                          `selfSkill`,
+                                                          `avatar` ,
+                                                          `dob`,
+                                                          `salaryStart`,
+                                                          `salaryEnd`,
+                                                          `gender`) VALUES ('0', 'nhan@gmail.com', "Vũ Xuân Trường", "Huyện Lý Nhân, Hà Nam", "023121", "Lập Trình Viên Android", "0", 2, "0", 'fulltime', 'Mong muốn tìm được chỗ làm ổn định lâu dài', 'Java core( học OOp trên lớp và khóa học Lập trình Java trong 4 tuần của Mrs.Trần Duy Thanh)', 'male_avatar.jpg', "1994/07/18", 12000000, 15000000, 0),('1', 'loc@gmail.com', "Nguyễn Văn Lộc", "994 Huỳnh Tấn Phát-Q7", "02312121", "Kỹ Sư Cơ Khí", "0", 2, "0", 'fulltime', 'Làm việc ở vị trí năng động, môi trường thân thiện, thử thách', 'Kỹ năng làm việc theo nhóm, Dễ dàng thích nghi với môi trường mới', 'C80qB9eFPtkTQsNh80XZ3rwP9CyeydVWgY2vdFJg.jpeg', "1995/04/28", 10000000, 12000000, 0),('2', 'phuong@gmail.com', "Nguyễn Thị Phượng", "352/4A Trường Chinh", "02382121", "Tư Vấn Và Chăm Sóc Khách Hàng", "1", 2, "3", 'fulltime', 'Công việc có tình tư duy cao, năng động, không rập khuôn.', 'Kỹ năng làm việc nhóm, làm việc độc lập tốt. Nhiệt tình, tích cực, tư duy công việc khoa học, sáng tạo, có khả năng phân tích đánh giá vấn đề.', 'kplA9AzuPTvfdf6Tsz6UyTPhzEQ3eB0j3w9HQsU2.jpeg', "1995/09/04", 8000000, 10000000, 1),('3', 'huyen@gmail.com', "Nguyễn Thị Huyền", "Hà Đông - Hà Nội", "09382121", "Marketing Online", "0", 3, "3", 'fulltime', 'Không ngừng học hỏi, tích lũy kiến thức, nâng cao năng lực về lĩnh vực marketing online', 'Sử dụng thành thạo tin học văn phòng Word, Excel, PowerPoint. Có khả năng lên kế hoạch marketing, phát triển thương hiệu cho Công ty', 'rsIWZ9Lj79uJI6E7hlObqMWOUDRz4NM3PzC8eSUw.jpeg', "1991/10/24", 12000000, 20000000, 1)
+
+INSERT INTO `placecandidate` (`wpCa`,`candidateID`,`wpID`) VALUES ('0', '0', '0'),('1', '0', '2'), ('2', '1', '2'), ('3', '2', '5'), ('4', '2', '7'), ('5', '3', '2')
+INSERT INTO `territorycandidate` (`teCa`,`candidateID`,`territoryID`) VALUES ('0', '0', '12'),('1', '0', '13'), ('2', '1', '1'), ('3', '2', '0'), ('4', '2', '7'), ('5', '3', '2')
+
+
+INSERT INTO `placejob` (`teJo`,`jobID`,`wpID`) VALUES ('0', '0', '0'),('1', '0', '2'), ('2', '1', '2'), ('3', '2', '5'), ('4', '2', '7'), ('5', '3', '2'), ('6', '4', '4'), ('7', '5', '2'), ('8', '5', '4')
+INSERT INTO `territoryjob` (`peJo`,`jobID`,`territoryID`) VALUES ('0', '0', '12'),('1', '0', '13'), ('2', '1', '1'), ('3', '2', '0'), ('4', '2', '7'), ('5', '3', '2'), ('6', '4', '4'), ('7', '5', '2'), ('8', '5', '4')

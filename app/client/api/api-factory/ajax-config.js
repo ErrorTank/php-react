@@ -1,7 +1,7 @@
 export const sendRequest = ({url, type, data, headers, beforeSend, onError}) => new Promise((resolve, reject) => {
   let ajaxConfig = {
     url,
-    contentType: "application/json",
+    // contentType: "application/json",
     type,
     beforeSend: (xhr) => {
       if (headers && Object.keys(headers).length) {

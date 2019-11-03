@@ -15,7 +15,7 @@ export const companyApi = {
             sortValue: value,
             keyword: keyword || null
         };
-        return offlineApi.get(`/companies${urlUtils.buildParams(params)}`)
+        return offlineApi.get(`/company/all.php${urlUtils.buildParams(params)}`)
     },
 
 };
