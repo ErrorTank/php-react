@@ -56,6 +56,23 @@ CREATE TABLE `tuyendung`.`Job`(
     PRIMARY KEY(`jobID`),
     UNIQUE(`jobID`)
 ) ENGINE = INNODB;
+INSERT INTO `Job` (`jobID` ,
+                           `label`,
+                           `salaryStart` ,
+                           `salaryEnd` ,
+                           `owner` ,
+                           `deadline` ,
+                           `requiredExperiment`,
+                           `requiredLevel` ,
+                           `quantity` ,
+                           `workType`,
+                           `desiredLevel`,
+                           `requiredGender` ,
+                           `description` ,
+                           `priority`,
+                           `jobRequired`,
+                           `itemRequired`,
+                           `contact`) VALUES ('0', 'Lập trình viên PHP', 8000000, 12000000, "2" , "2019/11/20", 2, "3", 3, "fulltime", "0",0,"Phát triển các dự án CRM và CMS trên nền PHP & MySQL cho công ty và khách hàng của công ty.", "Bảo hiểm sức khoẻ (khám chữa bệnh) và tai nạn dành cho nhân viên (100 triệu /năm).", "Am hiểu về PHP & MySQL, CSS, HTML, Javascript, jQuery.", "Đơn xin việc, Sơ yếu lý lịch", '{"contactTo":"Mr Tho","address":"129 Le duc tho","phone":"021742232","email":"ok@gmail.com"}'),('1', 'Chuyên viên Marketing', 5000000, 10000000, "5" , "2019/12/21", 1, "0", 2, "fulltime", "0",1,"Trực tiếp triển khai quảng cáo FB,Google,Zalo HỖ TRỢ các đại lý bán hàng.", "Lương cứng: 10 - 15 triệu + 2-5 % lợi nhuận từ các kênh phân phối.", "Kinh nghiệm tối thiểu 6 tháng cho công việc digital marketing, Ưu tiên lĩnh vực bán lẻ", "Đơn xin việc, Sơ yếu lý lịch", '{"contactTo":"Ms. Thu","address":"tầng 11- tháp C - 219 Trung Kính, Hà Nội","phone":"021763232","email":"ok2@gmail.com"}'),('2', 'Nhân Viên Kinh Doanh', 7000000, 13000000, "4" , "2019/11/30", 1, "0", 2, "fulltime", "0",1,"Thực hiện công tác bán hàng, tư vấn cung cấp những giải pháp tài chính phù hợp với nhu cầu khách hàng.", "Lương cơ bản: 7,000,000 VND; 13.000,000 VND (Tùy thuộc vào bằng cấp và vị trí làm việc)", "Ngoại hình ưa nhìn. Ưu tiên giới tính Nữ, Tác phong: Chuyên nghiệp, nhanh nhẹn", "Đơn xin việc, Sơ yếu lý lịch, Hộ khẩu, chứng minh nhân dân và giấy khám sức khỏe.", '{"contactTo":"Ms Phương","address":"36B, đường 3/2, phường 1, TP Vĩnh Long","phone":"0217632322","email":"ok3@gmail.com"}')
 CREATE TABLE `tuyendung`.`Territory`(
     `territoryID` NVARCHAR(10) NOT NULL,
     `label` NVARCHAR(100) NOT NULL,
@@ -150,5 +167,5 @@ INSERT INTO `placecandidate` (`wpCa`,`candidateID`,`wpID`) VALUES ('0', '0', '0'
 INSERT INTO `territorycandidate` (`teCa`,`candidateID`,`territoryID`) VALUES ('0', '0', '12'),('1', '0', '13'), ('2', '1', '1'), ('3', '2', '0'), ('4', '2', '7'), ('5', '3', '2')
 
 
-INSERT INTO `placejob` (`teJo`,`jobID`,`wpID`) VALUES ('0', '0', '0'),('1', '0', '2'), ('2', '1', '2'), ('3', '2', '5'), ('4', '2', '7'), ('5', '3', '2'), ('6', '4', '4'), ('7', '5', '2'), ('8', '5', '4')
-INSERT INTO `territoryjob` (`peJo`,`jobID`,`territoryID`) VALUES ('0', '0', '12'),('1', '0', '13'), ('2', '1', '1'), ('3', '2', '0'), ('4', '2', '7'), ('5', '3', '2'), ('6', '4', '4'), ('7', '5', '2'), ('8', '5', '4')
+INSERT INTO `placejob` (`peJo`,`jobID`,`wpID`) VALUES ('0', '0', '0'),('1', '0', '2'), ('2', '1', '2'), ('3', '2', '5'), ('4', '2', '7')
+INSERT INTO `territoryjob` (`teJo`,`jobID`,`territoryID`) VALUES ('0', '0', '12'),('1', '0', '13'), ('2', '1', '1'), ('3', '2', '0'), ('4', '2', '7')

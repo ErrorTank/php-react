@@ -8,6 +8,7 @@ export const companyApi = {
         let {skip, take, filter, sort} = config;
         let {key, value} = sort || {};
         let {keyword} = filter || {};
+        console.log(keyword)
         const params = {
             skip,
             take,

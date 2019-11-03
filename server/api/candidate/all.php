@@ -34,7 +34,8 @@
             'candidateID' => $candidateID,
             'fullname' => $fullname,
             'avatar' => $avatar,
-            'experimentTime' => $experimentTime
+            'experimentTime' => $experimentTime,
+            'label' => $label,
           );
 
           // Push to "data"

@@ -16,7 +16,7 @@ export const jobApi = {
             territory: territory || null,
             workPlace: workPlace || null
         };
-        return offlineApi.get(`/jobs${urlUtils.buildParams(params)}`)
+        return offlineApi.get(`/job/all.php${urlUtils.buildParams(params)}`)
     },
 
 };

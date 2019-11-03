@@ -22,16 +22,16 @@
     public function read() {
       // Create query
 
-      $query = 'SELECT * FROM ' . $this->table . ' c where ' . ($this->keyword == '' ? '1=1' : ' companyName like ?');
+      $query = 'SELECT * FROM ' . $this->table . ' c where ' . ($this->keyword == '' ? '1=1' : ' companyName like :keyword or email like :keyword or phone like :keyword');
 
 
       // Prepare statement
       $stmt = $this->conn->prepare($query);
-      $paramCount = 1;
+
       if($this->keyword != ''){
          $firstValue = '%' . $this->keyword . '%';
-         $stmt->bindParam($paramCount, $firstValue);
-         $paramCount++;
+         $stmt->bindParam(":keyword", $firstValue);
+
       }
 
       // Execute query

@@ -19,7 +19,13 @@ export class CompanyRoute extends React.Component{
     };
 
     fetchData = filter => {
-        return companyApi.getCompanies({filter}).then(({data}) => this.setState({loading: false, list: data, total: data.length}))
+
+        return companyApi.getCompanies({filter}).then(({data}) => {
+            this.setState({loading: false, list: [], total: 0})
+            if(data){
+                this.setState({list: data, total: data.length})
+            }
+        })
     };
 
     render(){
@@ -35,6 +41,7 @@ export class CompanyRoute extends React.Component{
                         <AppMainSearch
                             total={total}
                             onSearch={this.fetchData}
+                            tail={"Công ty"}
                         />
                         {loading && (
                             <LoadingInline/>

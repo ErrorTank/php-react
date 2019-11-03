@@ -1,17 +1,19 @@
 <?php
   class Job {
-    // DB stuff
-    private $conn;
-    private $table = 'jobs';
 
-    // Post Properties
-    public $id;
-    public $category_id;
-    public $category_name;
-    public $title;
-    public $body;
-    public $author;
-    public $created_at;
+    private $conn;
+    private $table = 'job';
+
+    public $keyword;
+    public $workPlace;
+    public $territory;
+    public $companyID;
+    public $companyName;
+    public $address;
+    public $avatar;
+    public $phone;
+    public $email;
+    public $description;
 
     // Constructor with DB
     public function __construct($db) {
@@ -21,15 +23,28 @@
     // Get Posts
     public function read() {
       // Create query
-      $query = 'SELECT c.name as category_name, p.id, p.category_id, p.title, p.body, p.author, p.created_at
-                                FROM ' . $this->table . ' p
-                                LEFT JOIN
-                                  categories c ON p.category_id = c.id
-                                ORDER BY
-                                  p.created_at DESC';
+
+      $query = 'SELECT * FROM ' . $this->table . ' c inner join company co on co.companyID = c.owner where ' . ($this->keyword == '' ? '1=1' : ' c.label like :keyword') . ($this->workPlace == '' ? ' and 1=1 ' : ' and c.jobID in (select jobID from placejob pc where pc.wpID = :workPlace)') . ($this->territory == '' ? ' and 1=1 ' : ' and c.jobID in (select jobID from territoryjob tc where tc.territoryID = :territory)');
+
 
       // Prepare statement
       $stmt = $this->conn->prepare($query);
+
+      if($this->keyword != ''){
+        $firstValue = '%' . $this->keyword . '%';
+        $stmt->bindParam(":keyword", $firstValue);
+
+      }
+
+      if($this->workPlace != ''){
+
+        $stmt->bindParam(":workPlace", $this->workPlace);
+
+      }
+      if($this->territory != ''){
+        $stmt->bindParam(":territory", $this->territory);
+
+      }
 
       // Execute query
       $stmt->execute();

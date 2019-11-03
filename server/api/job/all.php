@@ -11,10 +11,12 @@
   $db = $database->connect();
 
   // Instantiate category object
-  $category = new Category($db);
-
+  $job = new Job($db);
+  $job->keyword = isset($_GET['keyword']) ? $_GET['keyword'] : "";
+  $job->workPlace = isset($_GET['workPlace']) ? $_GET['workPlace'] : "";
+  $job->territory = isset($_GET['territory']) ? $_GET['territory'] : "";
   // Category read query
-  $result = $category->read();
+  $result = $job->read();
 
   // Get row count
   $num = $result->rowCount();
@@ -29,8 +31,16 @@
           extract($row);
 
           $cat_item = array(
-            'id' => $id,
-            'name' => $name
+            'jobID' => $jobID,
+            'label' => $label,
+            'deadline' => $deadline,
+            'salaryStart' => $salaryStart,
+            'salaryEnd' => $salaryEnd,
+            'owner' => array(
+              'companyID' => $companyID,
+              'companyName' => $companyName,
+              'avatar' => $avatar
+            )
           );
 
           // Push to "data"
@@ -38,11 +48,9 @@
         }
 
         // Turn to JSON & output
-        echo json_encode($cat_arr);
+        print_r(json_encode($cat_arr, JSON_UNESCAPED_UNICODE));
 
   } else {
         // No Categories
-        echo json_encode(
-          array('message' => 'No Categories Found')
-        );
+       print_r(json_encode( array('message' => 'No Jobs Found')));
   }

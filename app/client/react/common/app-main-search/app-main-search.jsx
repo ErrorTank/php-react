@@ -154,7 +154,7 @@ export class AppMainSearch extends Component {
                         </div>
                         <div className="search-wrapper">
                             {currentSearch.render()}
-                            <p className="summary"></p>
+                            <p className="summary">Tìm thấy {this.props.total} kết quả {this.props.tail}.</p>
                         </div>
                     </div>
 

@@ -24,26 +24,26 @@
     public function read() {
       // Create query
 
-      $query = 'SELECT * FROM ' . $this->table . ' c where ' . ($this->keyword == '' ? '1=1' : ' c.fullname like ?') . ($this->workPlace == '' ? ' and 1=1 ' : ' and c.candidateID in (select candidateID from placecandidate pc where pc.wpID = ?)') . ($this->territory == '' ? ' and 1=1 ' : ' and c.candidateID in (select candidateID from territorycandidate tc where tc.territoryID = ?)');
-      echo $query;
+      $query = 'SELECT * FROM ' . $this->table . ' c where ' . ($this->keyword == '' ? '1=1' : ' c.fullname like :keyword or c.label like :keyword or email like :keyword or phone like :keyword') . ($this->workPlace == '' ? ' and 1=1 ' : ' and c.candidateID in (select candidateID from placecandidate pc where pc.wpID = :workPlace)') . ($this->territory == '' ? ' and 1=1 ' : ' and c.candidateID in (select candidateID from territorycandidate tc where tc.territoryID = :territory)');
+
 
       // Prepare statement
       $stmt = $this->conn->prepare($query);
-      $paramCount = 1;
+
       if($this->keyword != ''){
         $firstValue = '%' . $this->keyword . '%';
-        $stmt->bindParam($paramCount, $firstValue);
-        $paramCount++;
+        $stmt->bindParam(":keyword", $firstValue);
+
       }
 
       if($this->workPlace != ''){
-        echo "cac";
-        $stmt->bindParam($paramCount, $this->workPlace);
-        $paramCount++;
+
+        $stmt->bindParam(":workPlace", $this->workPlace);
+
       }
       if($this->territory != ''){
-        $stmt->bindParam($paramCount, $this->territory);
-        $paramCount++;
+        $stmt->bindParam(":territory", $this->territory);
+
       }
 
       // Execute query
