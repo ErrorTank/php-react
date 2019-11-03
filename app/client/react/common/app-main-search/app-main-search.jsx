@@ -116,7 +116,7 @@ export class AppMainSearch extends Component {
             render: () => {
                 return (
                     <FullOptionSearch
-                        placeholder={"Tìm bằng tên ứng viên"}
+                        placeholder={"Tìm bằng tên, email, SĐT, nghề nghiệp của ứng viên"}
                         onSearch={this.props.onSearch}
                         total={this.props.total}
                     />
