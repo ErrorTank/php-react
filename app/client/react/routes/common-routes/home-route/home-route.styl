@@ -12,10 +12,15 @@
       display inline-block
       vertical-align top
       width 65px
+      height 100%
+      position relative
       margin-right 12px
       img{
         max-width 100%
-
+        position absolute
+        top 50%
+        left 50%
+        transform translate(-50%, -50%)
       }
 
     }
@@ -23,7 +28,7 @@
       display inline-block
       vertical-align top
       .job-label{
-        font-size 15px
+        font-size 16px
         font-weight 550
         overflow hidden
         white-space nowrap
@@ -32,7 +37,7 @@
         color tikiblue
       }
       .com-name{
-        font-size 13px
+        font-size 14px
         color #999
         overflow hidden
         white-space nowrap
@@ -41,7 +46,7 @@
       .more{
         overflow hidden
         text-overflow ellipsis
-        font-size 12px
+        font-size 13px
         .salary-range{
            color danger
            display inline-block

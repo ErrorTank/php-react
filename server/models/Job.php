@@ -7,22 +7,32 @@
     public $keyword;
     public $workPlace;
     public $territory;
-    public $companyID;
-    public $companyName;
-    public $address;
-    public $avatar;
-    public $phone;
-    public $email;
-    public $description;
 
-    // Constructor with DB
+    public $jobID;
+    public $label;
+    public $salaryStart;
+    public $salaryEnd;
+    public $owner;
+    public $deadline;
+    public $requiredExperiment;
+    public $requiredLevel;
+    public $quantity;
+    public $workType;
+    public $desiredLevel;
+    public $requiredGender;
+    public $description;
+    public $priority;
+    public $jobRequired;
+    public $itemRequired;
+    public $contact;
+
     public function __construct($db) {
       $this->conn = $db;
     }
 
-    // Get Posts
+
     public function read() {
-      // Create query
+
 
       $query = 'SELECT * FROM ' . $this->table . ' c inner join company co on co.companyID = c.owner where ' . ($this->keyword == '' ? '1=1' : ' c.label like :keyword') . ($this->workPlace == '' ? ' and 1=1 ' : ' and c.jobID in (select jobID from placejob pc where pc.wpID = :workPlace)') . ($this->territory == '' ? ' and 1=1 ' : ' and c.jobID in (select jobID from territoryjob tc where tc.territoryID = :territory)');
 
@@ -52,6 +62,35 @@
       return $stmt;
     }
 
+    public function getJobsByCompanyID() {
+          // Create query
+
+           $query = 'SELECT * FROM ' . $this->table . ' c where owner = ?';
+
+          // Prepare statement
+          $stmt = $this->conn->prepare($query);
+
+          $stmt->bindParam(1, $this->owner);
+
+
+          // Execute query
+          $stmt->execute();
+
+          return $stmt;
+        }
+    public function getJobWorkPlace($jobID){
+
+        $query = 'SELECT * FROM placejob pj inner join workingplace w on w.wpID = pj.wpID where pj.jobID = ?';
+        $stmt = $this->conn->prepare($query);
+
+                  $stmt->bindParam(1, $jobID);
+
+
+                  // Execute query
+                  $stmt->execute();
+
+                  return $stmt;
+    }
     // Get Single Post
     public function read_single() {
           // Create query

@@ -1,0 +1,186 @@
+.fancy-header{
+  margin-bottom 15px
+  .content{
+    font-size 20px
+    color rgb(74, 74, 74);
+    font-weight bold
+
+  }
+  .underline{
+    margin-top 10px
+    width 65px
+    height 3px
+    background-color tikiblue
+  }
+}
+.empty{
+  color #725002
+  background-color #f8ebcd
+  padding 12px
+  font-size 15px
+
+}
+.company-details-route{
+  .cdr-description{
+    padding 20px 0
+    background-color white
+    .description{
+      font-size 15px
+      color #1a1a1a
+      white-space pre-wrap
+
+    }
+  }
+  .cdr-jobs{
+    padding 20px 0
+    .jobs-wrapper{
+      background-color white
+      padding 20px
+      border-radius 3px
+      border 1px solid grey
+      .jobs{
+
+        .job{
+          & >div{
+            display inline-block
+            vertical-align middle
+          }
+          padding 20px 0
+          border-bottom 1px dashed grey
+          .join-btn{
+            width calc(100% - 380px - 550px)
+            color white
+            padding 6px 12px
+            font-size 15px
+            font-weight 550
+            transition all 0.1s ease
+            background-color #666
+            &:hover{
+              background-color lighten(#666, 10%)
+            }
+          }
+          .more{
+            width 380px
+            .deadline{
+              color rgb(74, 74, 74);
+              font-size 15px
+            }
+            .salary-range{
+              font-size 15px
+              color danger
+              margin-top 6px
+            }
+          }
+          .detail{
+            width 550px
+            & > p{
+              overflow hidden
+              white-space nowrap
+              text-overflow ellipsis
+              i{
+                font-size 18px
+                margin-right 6px
+              }
+            }
+            .label{
+              color rgb(74, 74, 74);
+              font-size 16px
+              font-weight 550
+            }
+            .sub{
+              color #999
+              margin-top 5px
+              font-size 15px
+              .separate{
+                margin 0 15px
+              }
+              .wp{
+                margin-right 5px
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .cdr-header{
+    padding 15px 0
+    border-bottom 5px solid tikiblue
+    background-color white
+    .header-content{
+      & > div{
+        display inline-block
+        vertical-align middle
+      }
+      .summary{
+        width 110px
+        text-align right
+        .box{
+          padding 7px 15px
+          background-color #f4f4f4
+          border-radius 3px
+          display inline-block
+          .count{
+            text-align center
+            color tikiblue
+            font-size 40px
+            font-weight bold
+
+          }
+          .label{
+            white-space nowrap
+            color #868686
+            font-size 20px
+            text-align center
+          }
+        }
+      }
+      .detail{
+        width calc(100% - 280px)
+        margin-right 20px
+        p{
+          overflow hidden
+          white-space nowrap
+          text-overflow ellipsis
+          i{
+            font-size 18px
+            margin-right 6px
+          }
+        }
+        .name{
+          color rgb(74, 74, 74);
+          font-size 22px
+          font-weight bold
+        }
+        .address{
+          margin-top 5px
+          color #999
+          font-size 15px
+          font-weight 550
+        }
+        .contact{
+          .separate{
+            margin 0 15px
+          }
+          margin-top 6px
+          color #999
+          font-size 15px
+        }
+      }
+      .logo{
+        width 120px
+        height 90px
+        overflow hidden
+        margin-right 30px
+        position relative
+        img{
+          position absolute
+          max-width 120px
+          top 50%
+          left 50%
+          transform translate(-50%, -50%)
+        }
+      }
+    }
+  }
+}

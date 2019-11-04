@@ -7,6 +7,7 @@ import {AuthenRoute, GuestRoute} from "./route-types/authen-routes";
 import {HomeRoute} from "./common-routes/home-route/home-route";
 import {CandidateRoute} from "./common-routes/candidate-route/candidate-route";
 import {CompanyRoute} from "./common-routes/company-route/company-route";
+import {CompanyDetailsRoute} from "./common-routes/company-details-route/company-details-route";
 export const customHistory = createBrowserHistory();
 
 
@@ -28,6 +29,7 @@ export class MainRoute extends React.Component {
                         <WithLocationRoute exact path="/" render={props => (<HomeRoute {...props}/>)}/>
                         <WithLocationRoute exact path="/ung-vien" render={props => (<CandidateRoute {...props}/>)}/>
                         <WithLocationRoute exact path="/cong-ty" render={props => (<CompanyRoute {...props}/>)}/>
+                        <WithLocationRoute exact path="/company/:companyID" render={props => (<CompanyDetailsRoute {...props}/>)}/>
                     </Switch>
                 </Router>
 

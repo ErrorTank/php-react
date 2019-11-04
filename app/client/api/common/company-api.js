@@ -8,7 +8,7 @@ export const companyApi = {
         let {skip, take, filter, sort} = config;
         let {key, value} = sort || {};
         let {keyword} = filter || {};
-        console.log(keyword)
+
         const params = {
             skip,
             take,
@@ -18,5 +18,7 @@ export const companyApi = {
         };
         return offlineApi.get(`/company/all.php${urlUtils.buildParams(params)}`)
     },
-
+    getCompanyDetails(companyID){
+        return offlineApi.get(`/company/details.php?id=${companyID}`)
+    },
 };

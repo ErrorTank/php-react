@@ -5,11 +5,11 @@ const wait1 = (fn, amount = 2000) => new Promise((res, rej) => {
     }, amount)
 });
 
-export const wait2 = delay => new Promise((resolve) => {
+const wait2 = delay => new Promise((resolve) => {
     setTimeout(() =>  resolve() ,delay)
 }) ;
 
-export const delayLoad = fn => () => new Promise(resolve => {
+const delayLoad = fn => () => new Promise(resolve => {
     setTimeout(() => resolve(fn()), 300)
 });
 

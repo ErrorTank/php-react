@@ -15,19 +15,19 @@
     public $email;
     public $description;
 
-    // Constructor with DB
+
     public function __construct($db) {
       $this->conn = $db;
     }
 
-    // Get Posts
+
     public function read() {
-      // Create query
+
 
       $query = 'SELECT * FROM ' . $this->table . ' c where ' . ($this->keyword == '' ? '1=1' : ' c.fullname like :keyword or c.label like :keyword or email like :keyword or phone like :keyword') . ($this->workPlace == '' ? ' and 1=1 ' : ' and c.candidateID in (select candidateID from placecandidate pc where pc.wpID = :workPlace)') . ($this->territory == '' ? ' and 1=1 ' : ' and c.candidateID in (select candidateID from territorycandidate tc where tc.territoryID = :territory)');
 
 
-      // Prepare statement
+
       $stmt = $this->conn->prepare($query);
 
       if($this->keyword != ''){
@@ -46,7 +46,7 @@
 
       }
 
-      // Execute query
+
       $stmt->execute();
 
       return $stmt;

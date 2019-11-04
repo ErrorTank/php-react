@@ -13,19 +13,19 @@
     public $email;
     public $description;
 
-    // Constructor with DB
+
     public function __construct($db) {
       $this->conn = $db;
     }
 
-    // Get Posts
+
     public function read() {
-      // Create query
+
 
       $query = 'SELECT * FROM ' . $this->table . ' c where ' . ($this->keyword == '' ? '1=1' : ' companyName like :keyword or email like :keyword or phone like :keyword');
 
 
-      // Prepare statement
+
       $stmt = $this->conn->prepare($query);
 
       if($this->keyword != ''){
@@ -34,40 +34,35 @@
 
       }
 
-      // Execute query
+
       $stmt->execute();
 
       return $stmt;
     }
 
-    // Get Single Post
-    public function read_single() {
-          // Create query
-          $query = 'SELECT c.name as category_name, p.id, p.category_id, p.title, p.body, p.author, p.created_at
-                                    FROM ' . $this->table . ' p
-                                    LEFT JOIN
-                                      categories c ON p.category_id = c.id
-                                    WHERE
-                                      p.id = ?
-                                    LIMIT 0,1';
 
-          // Prepare statement
+    public function getDetails() {
+
+          $query = 'select * from company co where companyID = ?';
+
+
           $stmt = $this->conn->prepare($query);
 
-          // Bind ID
-          $stmt->bindParam(1, $this->id);
 
-          // Execute query
+          $stmt->bindParam(1, $this->companyID);
+
+
           $stmt->execute();
 
           $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-          // Set properties
-          $this->title = $row['title'];
-          $this->body = $row['body'];
-          $this->author = $row['author'];
-          $this->category_id = $row['category_id'];
-          $this->category_name = $row['category_name'];
+
+          $this->companyName = $row['companyName'];
+          $this->address = $row['address'];
+          $this->avatar = $row['avatar'];
+          $this->phone = $row['phone'];
+          $this->email = $row['email'];
+          $this->description = $row['description'];
     }
 
 

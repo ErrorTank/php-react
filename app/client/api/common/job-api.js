@@ -18,5 +18,7 @@ export const jobApi = {
         };
         return offlineApi.get(`/job/all.php${urlUtils.buildParams(params)}`)
     },
-
+    getJobsByCompanyID(companyID){
+        return offlineApi.get(`/job/all-by-company.php?id=${companyID}`)
+    }
 };
