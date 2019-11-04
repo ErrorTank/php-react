@@ -25,6 +25,8 @@
     public $jobRequired;
     public $itemRequired;
     public $contact;
+    public $places;
+    public $territories;
 
     public function __construct($db) {
       $this->conn = $db;
@@ -120,7 +122,84 @@
           $this->category_id = $row['category_id'];
           $this->category_name = $row['category_name'];
     }
+public function getDetails() {
 
+          $query1 = 'select j.jobID, j.label, j.salaryStart, j.salaryEnd, j.deadline, j.requiredExperiment, l.label as requiredLevel, j.quantity, j.workType, dl.label as desiredLevel, j.requiredGender, j.description, j.priority, j.jobRequired, j.itemRequired, j.contact, c.companyID, c.companyName, c.address, c.avatar, c.phone, c.email from job j inner join company c on j.owner = c.companyID inner join desiredLevel dl on dl.dlID = j.desiredLevel inner join level l on l.levelID = j.requiredLevel where j.jobID = ?';
+          $query2 = 'select * from placejob pj inner join workingplace w on w.wpID = pj.wpID where pj.jobID = ?';
+          $query3 = 'select * from territoryjob tj inner join territory t on t.territoryID = tj.territoryID where tj.jobID = ?';
+
+
+          $stmt1 = $this->conn->prepare($query1);
+          $stmt2 = $this->conn->prepare($query2);
+          $stmt3 = $this->conn->prepare($query3);
+
+          $stmt1->bindParam(1, $this->jobID);
+          $stmt2->bindParam(1, $this->jobID);
+          $stmt3->bindParam(1, $this->jobID);
+
+
+          $stmt1->execute();
+          $stmt2->execute();
+          $stmt3->execute();
+
+          $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
+
+          $row3 = $stmt3->fetch(PDO::FETCH_ASSOC);
+          $places = array();
+          $territories = array();
+           while($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)) {
+                    extract($row2);
+
+                    $item = array(
+                      'wpID' => $wpID,
+                      'label' => $label
+                    );
+
+
+
+                    array_push($places, $item);
+                  }
+           while($row3 = $stmt3->fetch(PDO::FETCH_ASSOC)) {
+                               extract($row3);
+
+                               $item = array(
+                                 'territoryID' => $territoryID,
+                                 'label' => $label
+                               );
+
+
+
+                               array_push($territories, $item);
+                             }
+
+
+          $this->label = $row1['label'];
+          $this->salaryStart = $row1['salaryStart'];
+          $this->salaryEnd = $row1['salaryEnd'];
+          $this->owner = array(
+            "companyID" => $row1["companyID"],
+            "companyName" => $row1["companyName"],
+            "address" => $row1["address"],
+            "avatar" => $row1["avatar"],
+            "email" => $row1["email"],
+            "phone" => $row1["phone"]
+          );
+          $this->deadline = $row1['deadline'];
+          $this->requiredExperiment = $row1['requiredExperiment'];
+          $this->requiredLevel = $row1['requiredLevel'];
+                $this->quantity = $row1['quantity'];
+                $this->workType = $row1['workType'];
+                $this->desiredLevel = $row1['desiredLevel'];
+                $this->requiredGender = $row1['requiredGender'];
+                $this->description = $row1['description'];
+                $this->priority = $row1['priority'];
+                $this->jobRequired = $row1['jobRequired'];
+                $this->itemRequired = $row1['itemRequired'];
+                $this->contact = $row1['contact'];
+                $this->territories = $territories;
+                $this->places = $places;
+
+    }
 
 
   }

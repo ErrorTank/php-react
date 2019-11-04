@@ -20,5 +20,8 @@ export const jobApi = {
     },
     getJobsByCompanyID(companyID){
         return offlineApi.get(`/job/all-by-company.php?id=${companyID}`)
-    }
+    },
+    getJobDetails(jobID){
+        return offlineApi.get(`/job/details.php?id=${jobID}`)
+    },
 };

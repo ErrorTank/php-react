@@ -91,7 +91,7 @@ export class CompanyDetailsRoute extends Component {
                                                                 <p className="deadline"><i className="far fa-clock"></i> Hạn nộp hồ sơ: {moment(new Date(each.deadline)).format("DD/MM/YYYY")}</p>
                                                                 <p className="salary-range"><i className="fas fa-dollar-sign"></i> {formatMoney(each.salaryStart)} VNĐ - {formatMoney(each.salaryEnd)} VNĐ</p>
                                                             </div>
-                                                            <div className='btn join-btn'>Chi tiết</div>
+                                                            <div className='btn join-btn' onClick={() => customHistory.push(`/job/${each.jobID}`)}>Chi tiết</div>
                                                         </div>
                                                     )
                                                 })) : <p className="empty">Không có việc làm nào</p>}

@@ -46,7 +46,7 @@ export class Navbar extends React.Component {
             <div className="nav-bar">
                 <div className="container">
                     <div className="wrapper">
-                        <div className="brand">
+                        <div className="brand" onClick={() => customHistory.push("/")}>
                             <span>kappa</span>
                             <span className="box">work</span>
                         </div>
