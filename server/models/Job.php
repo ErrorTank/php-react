@@ -36,7 +36,7 @@
     public function read() {
 
 
-      $query = 'SELECT * FROM ' . $this->table . ' c inner join company co on co.companyID = c.owner where ' . ($this->keyword == '' ? '1=1' : ' c.label like :keyword') . ($this->workPlace == '' ? ' and 1=1 ' : ' and c.jobID in (select jobID from placejob pc where pc.wpID = :workPlace)') . ($this->territory == '' ? ' and 1=1 ' : ' and c.jobID in (select jobID from territoryjob tc where tc.territoryID = :territory)');
+      $query = 'SELECT * FROM ' . $this->table . ' c inner join company co on co.companyID = c.owner where ' . ($this->keyword == '' ? '1=1' : ' c.label like :keyword') . ($this->workPlace == '' ? ' and 1=1 ' : ' and c.jobID in (select jobID from placejob pc where pc.wpID = :workPlace)') . ($this->territory == '' ? ' and 1=1 ' : ' and c.jobID in (select jobID from territoryjob tc where tc.territoryID = :territory)') . ($this->requiredLevel == '' ? ' and 1=1 ' : ' and c.requiredLevel = :requiredLevel') . ($this->workType == '' ? ' and 1=1 ' : ' and c.workType = :workType') . ($this->requiredGender == '' ? ' and 1=1 ' : ' and c.requiredGender = :requiredGender') . ($this->desiredLevel == '' ? ' and 1=1 ' : ' and c.desiredLevel = :desiredLevel');
 
 
       // Prepare statement
@@ -57,6 +57,22 @@
         $stmt->bindParam(":territory", $this->territory);
 
       }
+       if($this->requiredLevel != ''){
+                    $stmt->bindParam(":requiredLevel", $this->requiredLevel);
+
+                  }
+            if($this->workType != ''){
+                    $stmt->bindParam(":workType", $this->workType);
+
+                  }
+            if($this->requiredGender != ''){
+                    $stmt->bindParam(":requiredGender", $this->requiredGender);
+
+                  }
+            if($this->desiredLevel != ''){
+                    $stmt->bindParam(":desiredLevel", $this->desiredLevel);
+
+                  }
 
 
       $stmt->execute();

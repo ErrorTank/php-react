@@ -15,6 +15,10 @@
   $job->keyword = isset($_GET['keyword']) ? $_GET['keyword'] : "";
   $job->workPlace = isset($_GET['workPlace']) ? $_GET['workPlace'] : "";
   $job->territory = isset($_GET['territory']) ? $_GET['territory'] : "";
+  $job->requiredLevel = isset($_GET['level']) ? $_GET['level'] : "";
+      $job->workType = isset($_GET['workType']) ? $_GET['workType'] : "";
+      $job->requiredGender = isset($_GET['gender']) ? $_GET['gender'] : "";
+      $job->desiredLevel = isset($_GET['desiredLevel']) ? $_GET['desiredLevel'] : "";
   // Category read query
   $result = $job->read();
 

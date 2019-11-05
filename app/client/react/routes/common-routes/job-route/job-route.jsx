@@ -8,7 +8,7 @@ import {formatMoney} from "../../../../common/utils/common";
 import moment from "moment";
 import {customHistory} from "../../routes";
 
-export class JobRoute extends Component {
+export class JobDetailsRoute extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -101,7 +101,7 @@ export class JobRoute extends Component {
                                                     <div className="item col-6 p-0 m-0">
                                                         <span className="label">Yêu cầu giới tính:</span>
                                                         <span
-                                                            className="value">{job.requiredGender == '1' ? "Nam" : "Nữ"}</span>
+                                                            className="value">{job.requiredGender == '0' ? "Nam" : "Nữ"}</span>
                                                     </div>
                                                     <div className="item col-12 p-0 m-0">
                                                         <span className="label">Ngành nghề:</span>

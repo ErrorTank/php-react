@@ -8,6 +8,9 @@
     public $email;
     public $fullname;
     public $address;
+    public $workPlace;
+    public $territory;
+    public $keyword;
     public $phone;
     public $label;
     public $desiredLevel;
@@ -32,7 +35,7 @@
     public function read() {
 
 
-      $query = 'SELECT * FROM ' . $this->table . ' c where ' . ($this->keyword == '' ? '1=1' : ' c.fullname like :keyword or c.label like :keyword or email like :keyword or phone like :keyword') . ($this->workPlace == '' ? ' and 1=1 ' : ' and c.candidateID in (select candidateID from placecandidate pc where pc.wpID = :workPlace)') . ($this->territory == '' ? ' and 1=1 ' : ' and c.candidateID in (select candidateID from territorycandidate tc where tc.territoryID = :territory)');
+      $query = 'SELECT * FROM ' . $this->table . ' c where ' . ($this->keyword == '' ? '1=1' : ' c.fullname like :keyword or c.label like :keyword or email like :keyword or phone like :keyword') . ($this->workPlace == '' ? ' and 1=1 ' : ' and c.candidateID in (select candidateID from placecandidate pc where pc.wpID = :workPlace)') . ($this->territory == '' ? ' and 1=1 ' : ' and c.candidateID in (select candidateID from territorycandidate tc where tc.territoryID = :territory)') . ($this->selfLevel == '' ? ' and 1=1 ' : ' and c.selfLevel = :selfLevel') . ($this->workType == '' ? ' and 1=1 ' : ' and c.workType = :workType') . ($this->gender == '' ? ' and 1=1 ' : ' and c.gender = :gender') . ($this->desiredLevel == '' ? ' and 1=1 ' : ' and c.desiredLevel = :desiredLevel');
 
 
 
@@ -53,8 +56,22 @@
         $stmt->bindParam(":territory", $this->territory);
 
       }
+      if($this->selfLevel != ''){
+              $stmt->bindParam(":selfLevel", $this->selfLevel);
 
+            }
+      if($this->workType != ''){
+              $stmt->bindParam(":workType", $this->workType);
 
+            }
+      if($this->gender != ''){
+              $stmt->bindParam(":gender", $this->gender);
+
+            }
+      if($this->desiredLevel != ''){
+              $stmt->bindParam(":desiredLevel", $this->desiredLevel);
+
+            }
       $stmt->execute();
 
       return $stmt;

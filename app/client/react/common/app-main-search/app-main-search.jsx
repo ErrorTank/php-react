@@ -5,20 +5,34 @@ import {CommonInput} from "../common-input/common-input";
 import {Select} from "../select/select";
 import {cities} from "../city";
 import {territories} from "../territory";
+import {levels} from "../level";
+import {salaries} from "../salary";
+import {exs} from "../experiment";
+import {workTypes} from "../work-type";
+import {genders} from "../gender";
+import {desiredLevels} from "../desired-level";
 
-class FullOptionSearch extends Component{
+class FullOptionSearch extends Component {
     constructor(props) {
         super(props);
+        this.advanceSearch = {
+            level: "",
+            desiredLevel: "",
+            workType: "",
+            gender: ""
+        };
         this.state = {
             keyword: "",
             territory: "",
-            workPlace: ""
+            workPlace: "",
+            advance: false,
+            ...this.advanceSearch
         };
     }
 
     render() {
 
-        let {keyword, territory, workPlace} = this.state;
+        let {keyword, territory, workPlace, level, salary, experiment, desiredLevel, workType, gender} = this.state;
 
         return (
             <div className="app-search">
@@ -56,18 +70,74 @@ class FullOptionSearch extends Component{
                 >
                     Tìm kiếm
                 </button>
+                {this.state.advance && (
+                    <div className="advance-search">
+                        <div>
+                            <Select
+                                options={levels}
+                                value={level}
+                                displayAs={(each) => each.name}
+                                getValue={each => each.key}
+                                onChange={e => {
+                                    this.setState({level: e.target.value})
+                                }}
+                            />
+                            <Select
+                                options={workTypes}
+                                value={workType}
+                                displayAs={(each) => each.name}
+                                getValue={each => each.key}
+                                onChange={e => {
+                                    this.setState({workType: e.target.value})
+                                }}
+                            />
+                            <Select
+                                options={genders}
+                                value={gender}
+                                displayAs={(each) => each.name}
+                                getValue={each => each.key}
+                                onChange={e => {
+                                    this.setState({gender: e.target.value})
+                                }}
+                            />
+                        </div>
+                        <div className="mt-3">
 
+                            <Select
+                                options={desiredLevels}
+                                value={desiredLevel}
+                                displayAs={(each) => each.name}
+                                getValue={each => each.key}
+                                onChange={e => {
+                                    this.setState({desiredLevel: e.target.value})
+                                }}
+                            />
+                        </div>
+                    </div>
+                )}
+                <div className="toggle"
+                     onClick={() => {
+                         this.setState({advance: !this.state.advance})
+                         if(this.state.advance){
+                             this.setState({...this.advanceSearch})
+                         }
+                     }}
+                >
+                    {this.state.advance ? "Ẩn tìm kiếm nâng cao" : "Hiện tìm kiếm nâng cao"}
+                </div>
             </div>
         )
     }
 }
-class CompanySearch extends Component{
+
+class CompanySearch extends Component {
     constructor(props) {
         super(props);
         this.state = {
             keyword: ""
         };
     }
+
     render() {
         let {keyword} = this.state;
         return (
@@ -147,7 +217,9 @@ export class AppMainSearch extends Component {
                     <div className="wrapper">
                         <div className="navigations">
                             {this.searchContents.map((each) => (
-                                <div className={classnames("nav-item", {active: each.url === customHistory.location.pathname})} key={each.url} onClick={() => customHistory.push(each.url)}>
+                                <div
+                                    className={classnames("nav-item", {active: each.url === customHistory.location.pathname})}
+                                    key={each.url} onClick={() => customHistory.push(each.url)}>
                                     {each.label}
                                 </div>
                             ))}

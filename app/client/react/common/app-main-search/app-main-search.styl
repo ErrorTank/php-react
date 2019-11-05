@@ -1,5 +1,25 @@
 
 .app-search{
+  position relative
+  .advance-search{
+    margin-top 20px
+    & > div{
+      display flex
+      justify-content space-between
+      & > div{
+        flex-basis 32%
+      }
+    }
+  }
+  .toggle{
+    position absolute
+    right 0
+    cursor pointer
+    top calc(100% + 10px)
+    color white
+    font-weight 550
+    font-size 15px
+  }
   .filter{
     display inline-block
     vertical-align top

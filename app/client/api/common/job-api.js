@@ -6,7 +6,7 @@ export const jobApi = {
     getJobs(config){
         let {skip, take, filter, sort} = config;
         let {key, value} = sort || {};
-        let {keyword, territory, workPlace} = filter || {};
+        let {keyword, workPlace, territory, level, desiredLevel, workType, gender} = filter || {};
         const params = {
             skip,
             take,
@@ -14,7 +14,11 @@ export const jobApi = {
             sortValue: value,
             keyword: keyword || null,
             territory: territory || null,
-            workPlace: workPlace || null
+            workPlace: workPlace || null,
+            level: level || null,
+            desiredLevel: desiredLevel || null,
+            workType: workType || null,
+            gender: gender || null,
         };
         return offlineApi.get(`/job/all.php${urlUtils.buildParams(params)}`)
     },

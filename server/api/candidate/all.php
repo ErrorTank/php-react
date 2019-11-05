@@ -15,7 +15,12 @@
   $candidate->keyword = isset($_GET['keyword']) ? $_GET['keyword'] : "";
   $candidate->workPlace = isset($_GET['workPlace']) ? $_GET['workPlace'] : "";
   $candidate->territory = isset($_GET['territory']) ? $_GET['territory'] : "";
+   $candidate->selfLevel = isset($_GET['level']) ? $_GET['level'] : "";
+    $candidate->workType = isset($_GET['workType']) ? $_GET['workType'] : "";
+    $candidate->gender = isset($_GET['gender']) ? $_GET['gender'] : "";
+    $candidate->desiredLevel = isset($_GET['desiredLevel']) ? $_GET['desiredLevel'] : "";
   // Category read query
+
   $result = $candidate->read();
 
   // Get row count

@@ -54,10 +54,10 @@ export class CandidateDetailsRoute extends Component {
                                                         </span>
                                                     </div>
                                                     <div className="col-6 m-0 p-0">
-                                                        {candidate.gender == "1" ? <i className="fas fa-mars"></i> :
+                                                        {candidate.gender == "0" ? <i className="fas fa-mars"></i> :
                                                             <i className="fas fa-venus"></i> }
                                                         <span className="value">
-                                                            {candidate.gender == '1' ? "Nam" : "Nữ"}
+                                                            {candidate.gender == '0' ? "Nam" : "Nữ"}
                                                         </span>
                                                     </div>
                                                 </div>
