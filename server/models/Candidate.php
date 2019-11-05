@@ -9,6 +9,7 @@
     public $fullname;
     public $address;
     public $workPlace;
+    public $accountID;
     public $territory;
     public $keyword;
     public $phone;

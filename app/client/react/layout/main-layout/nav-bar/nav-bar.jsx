@@ -13,6 +13,11 @@ export class Navbar extends React.Component {
     };
 
 
+    handleSignout = () => {
+        userInfo.setState(null);
+        authenCache.clearAuthen();
+    };
+
     navs = [
         {
             label: "TUYỂN DỤNG",
@@ -25,18 +30,36 @@ export class Navbar extends React.Component {
             label: "CÔNG TY",
             url: "/cong-ty"
         },
-        // {
-        //     label: "TÀI KHOẢN",
-        //     dropdownItems: [
-        //         {
-        //             label: "Ứng viên",
-        //             url: "/dang-nhap/ung-vien",
-        //         }, {
-        //             label: "Nhà tuyển dụng",
-        //             url: "/dang-nhap/nha-tuyen-dung",
-        //         },
-        //     ]
-        // },
+        {
+            label: () => {
+                let info = userInfo.getState();
+                console.log(info)
+                return info ? info.fullname : "TÀI KHOẢN"
+            },
+            dropdownItems: [
+                {
+                    label: "Ứng viên",
+                    url: "/dang-nhap/ung-vien",
+                    cond: () => !authenCache.getAuthen()
+                }, {
+                    label: "Nhà tuyển dụng",
+                    url: "/dang-nhap/nha-tuyen-dung",
+                    cond: () => !authenCache.getAuthen()
+                },{
+                    label: () => {
+                        return <div className="sign-out">
+                            <button className="btn btn-sign-out"
+                                    onClick={this.handleSignout}
+                            >
+                                Sign Out
+                            </button>
+                        </div>
+                    },
+
+                    cond: () => authenCache.getAuthen()
+                },
+            ]
+        },
 
     ];
 
@@ -73,7 +96,7 @@ export class Navbar extends React.Component {
                                             <CSSTransition in={show} timeout={200} classNames={"lift-up"}>
                                                 {(each.dropdownItems && show && (each.dropdownCond ? each.dropdownCond() : true)) ? (
                                                     <div className="dropdown-panel">
-                                                        {each.dropdownItems.map((item, i) => (
+                                                        {each.dropdownItems.map((item, i) => item.cond() ? (
                                                             <div key={i}
                                                                  className={classnames("dropdownItem", {active: item.isActive ? item.isActive() : item.url ? item.url === customHistory.location.pathname : false})}
                                                                  onClick={(e) => {
@@ -83,7 +106,7 @@ export class Navbar extends React.Component {
                                                             >
                                                                 {typeof item.label === "string" ? item.label : item.label()}
                                                             </div>
-                                                        ))}
+                                                        ) : null)}
                                                     </div>
                                                 ) : (
                                                     <span style={{display: "none"}}></span>

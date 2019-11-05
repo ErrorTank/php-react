@@ -1,6 +1,8 @@
 import {Cache} from "./cache"
 import Cookies from "js-cookie";
 import {appInstances} from "../instance";
+import {accountApi} from "../../api/common/account-api";
+import {userInfo} from "../states/common";
 
 const cookiesEngine = {
     getItem: Cookies.get,
@@ -23,7 +25,16 @@ export const authenCache = (() => {
                 if (!authen) {
                     reject();
                 } else {
-                    resolve();
+                    accountApi.getAuth().then(result => {
+                        userInfo.setState(result).then(() =>resolve() );
+                    }).catch((err) => {
+                        if(err.error === 'Expired token'){
+                            console.log("dasdas")
+                            authenCache.clearAuthen();
+                        }
+                        reject();
+                    });
+
 
                 }
             });

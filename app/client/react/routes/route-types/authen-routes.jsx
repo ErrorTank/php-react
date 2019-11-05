@@ -18,6 +18,7 @@ export class GuestRoute extends KComponent {
 
   render() {
     let {render, component: Component, ...rest} = this.props;
+    console.log(authenCache.getAuthen())
     return (
       <Route
         {...rest}
