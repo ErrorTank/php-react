@@ -4,17 +4,25 @@
     private $conn;
     private $table = 'candidate';
 
-    public $keyword;
-    public $workPlace;
-    public $territory;
-    public $companyID;
-    public $companyName;
-    public $address;
-    public $avatar;
-    public $phone;
+    public $candidateID;
     public $email;
-    public $description;
-
+    public $fullname;
+    public $address;
+    public $phone;
+    public $label;
+    public $desiredLevel;
+    public $experimentTime;
+    public $selfLevel;
+    public $workType;
+    public $selfTarget;
+        public $selfSkill;
+        public $avatar;
+        public $dob;
+        public $salaryStart;
+        public $salaryEnd;
+        public $gender;
+         public $places;
+            public $territories;
 
     public function __construct($db) {
       $this->conn = $db;
@@ -52,36 +60,78 @@
       return $stmt;
     }
 
-    // Get Single Post
-    public function read_single() {
-          // Create query
-          $query = 'SELECT c.name as category_name, p.id, p.category_id, p.title, p.body, p.author, p.created_at
-                                    FROM ' . $this->table . ' p
-                                    LEFT JOIN
-                                      categories c ON p.category_id = c.id
-                                    WHERE
-                                      p.id = ?
-                                    LIMIT 0,1';
 
-          // Prepare statement
-          $stmt = $this->conn->prepare($query);
 
-          // Bind ID
-          $stmt->bindParam(1, $this->id);
+public function getDetails() {
 
-          // Execute query
-          $stmt->execute();
+          $query1 = 'select ca.candidateID, ca.email, ca.fullname, ca.address, ca.phone, ca.label, l.label as selfLevel, ca.experimentTime, ca.workType, dl.label as desiredLevel, ca.selfTarget, ca.selfSkill, ca.avatar, ca.dob, ca.salaryStart, ca.salaryEnd, ca.gender from candidate ca  inner join desiredLevel dl on dl.dlID = ca.desiredLevel inner join level l on l.levelID = ca.selfLevel where ca.candidateID = ?';
+          $query2 = 'select * from placecandidate pc inner join workingplace w on w.wpID = pc.wpID where pc.candidateID = ?';
+          $query3 = 'select * from territorycandidate tc inner join territory t on t.territoryID = tc.territoryID where tc.candidateID = ?';
 
-          $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-          // Set properties
-          $this->title = $row['title'];
-          $this->body = $row['body'];
-          $this->author = $row['author'];
-          $this->category_id = $row['category_id'];
-          $this->category_name = $row['category_name'];
+          $stmt1 = $this->conn->prepare($query1);
+          $stmt2 = $this->conn->prepare($query2);
+          $stmt3 = $this->conn->prepare($query3);
+
+          $stmt1->bindParam(1, $this->candidateID);
+          $stmt2->bindParam(1, $this->candidateID);
+          $stmt3->bindParam(1, $this->candidateID);
+
+
+          $stmt1->execute();
+          $stmt2->execute();
+          $stmt3->execute();
+
+          $row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
+
+          $row3 = $stmt3->fetch(PDO::FETCH_ASSOC);
+          $places = array();
+          $territories = array();
+           while($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)) {
+                    extract($row2);
+
+                    $item = array(
+                      'wpID' => $wpID,
+                      'label' => $label
+                    );
+
+
+
+                    array_push($places, $item);
+                  }
+           while($row3 = $stmt3->fetch(PDO::FETCH_ASSOC)) {
+                               extract($row3);
+
+                               $item = array(
+                                 'territoryID' => $territoryID,
+                                 'label' => $label
+                               );
+
+
+
+                               array_push($territories, $item);
+                             }
+
+
+          $this->email = $row1['email'];
+          $this->fullname = $row1['fullname'];
+          $this->address = $row1['address'];
+          $this->phone = $row1['phone'];
+          $this->label = $row1['label'];
+          $this->desiredLevel = $row1['desiredLevel'];
+                $this->experimentTime = $row1['experimentTime'];
+                $this->selfLevel = $row1['selfLevel'];
+                $this->workType = $row1['workType'];
+                $this->selfTarget = $row1['selfTarget'];
+                $this->selfSkill = $row1['selfSkill'];
+                $this->avatar = $row1['avatar'];
+                $this->dob = $row1['dob'];
+                $this->salaryStart = $row1['salaryStart'];
+                $this->salaryEnd = $row1['salaryEnd'];
+                $this->gender = $row1['gender'];
+                $this->territories = $territories;
+                $this->places = $places;
+
     }
-
-
 
   }

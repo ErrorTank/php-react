@@ -58,24 +58,24 @@
 
       }
 
-      // Execute query
+
       $stmt->execute();
 
       return $stmt;
     }
 
     public function getJobsByCompanyID() {
-          // Create query
+
 
            $query = 'SELECT * FROM ' . $this->table . ' c where owner = ?';
 
-          // Prepare statement
+
           $stmt = $this->conn->prepare($query);
 
           $stmt->bindParam(1, $this->owner);
 
 
-          // Execute query
+
           $stmt->execute();
 
           return $stmt;
@@ -88,40 +88,12 @@
                   $stmt->bindParam(1, $jobID);
 
 
-                  // Execute query
+
                   $stmt->execute();
 
                   return $stmt;
     }
-    // Get Single Post
-    public function read_single() {
-          // Create query
-          $query = 'SELECT c.name as category_name, p.id, p.category_id, p.title, p.body, p.author, p.created_at
-                                    FROM ' . $this->table . ' p
-                                    LEFT JOIN
-                                      categories c ON p.category_id = c.id
-                                    WHERE
-                                      p.id = ?
-                                    LIMIT 0,1';
 
-          // Prepare statement
-          $stmt = $this->conn->prepare($query);
-
-          // Bind ID
-          $stmt->bindParam(1, $this->id);
-
-          // Execute query
-          $stmt->execute();
-
-          $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-          // Set properties
-          $this->title = $row['title'];
-          $this->body = $row['body'];
-          $this->author = $row['author'];
-          $this->category_id = $row['category_id'];
-          $this->category_name = $row['category_name'];
-    }
 public function getDetails() {
 
           $query1 = 'select j.jobID, j.label, j.salaryStart, j.salaryEnd, j.deadline, j.requiredExperiment, l.label as requiredLevel, j.quantity, j.workType, dl.label as desiredLevel, j.requiredGender, j.description, j.priority, j.jobRequired, j.itemRequired, j.contact, c.companyID, c.companyName, c.address, c.avatar, c.phone, c.email from job j inner join company c on j.owner = c.companyID inner join desiredLevel dl on dl.dlID = j.desiredLevel inner join level l on l.levelID = j.requiredLevel where j.jobID = ?';

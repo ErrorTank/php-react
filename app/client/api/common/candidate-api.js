@@ -19,5 +19,7 @@ export const candidateApi = {
         };
         return offlineApi.get(`/candidate/all.php${urlUtils.buildParams(params)}`)
     },
-
+    getCandidateDetails(candidateID){
+        return offlineApi.get(`/candidate/details.php?id=${candidateID}`)
+    },
 };
