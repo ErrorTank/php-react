@@ -1,0 +1,80 @@
+.applied-route{
+  .route-wrapper{
+    background-color white
+    border-radius 3px
+    padding 20px
+    margin-top 60px
+    .item{
+      margin-bottom 10px
+      padding 15px 0
+      border-bottom 1px dashed grey
+      white-space nowrap
+      & > div{
+        display inline-block
+        vertical-align middle
+      }
+      .sub-details{
+        width 585px
+        margin-right 15px
+        .label{
+          color rgb(74, 74, 74);
+          font-size 14px
+          margin-right 6px
+
+        }
+        .value{
+          color rgb(74, 74, 74);
+          font-size 14px
+          font-weight 550
+          &.salary-range{
+            color danger
+          }
+        }
+      }
+      .join-btn{
+        width calc(100% - 980px)
+        color white
+        padding 6px 12px
+        font-size 15px
+        font-weight 550
+        transition all 0.1s ease
+        background-color #666
+        &:hover{
+          background-color lighten(#666, 10%)
+        }
+      }
+      .main-detail{
+        width 250px
+        margin-right 15px
+        & > p{
+          white-space pre-wrap
+
+        }
+        .name{
+          color rgb(74, 74, 74);
+          font-size 15px
+
+          font-weight bold
+          vertical-align bottom
+        }
+        .label{
+
+          font-size 15px
+          color tikiblue
+          font-weight 550
+        }
+      }
+      .avatar{
+        margin-right 15px
+        .img-wrapper{
+          width 100px
+          display inline-block
+          vertical-align middle
+          img{
+            max-width 100%
+          }
+        }
+      }
+    }
+  }
+}

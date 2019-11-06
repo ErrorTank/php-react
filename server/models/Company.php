@@ -40,7 +40,17 @@
       return $stmt;
     }
 
+    public function getApplied(){
+         $query = 'select * from apply a inner join candidate c on a.candidateID = c.candidateID where a.jobID in (select j.jobID from job j where j.owner = :companyID)';
+         $stmt = $this->conn->prepare($query);
 
+
+         $stmt->bindParam(':companyID', $this->companyID);
+         $stmt->execute();
+
+         return $stmt;
+
+    }
     public function getDetails() {
 
           $query = 'select * from company co where companyID = ?';

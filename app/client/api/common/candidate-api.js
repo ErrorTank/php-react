@@ -8,6 +8,7 @@ export const candidateApi = {
     checkApplied: jobID =>{
         return  (authenCache.getAuthen() && userInfo.getState().role === '0') ? authenApi.post(`/candidate/check.php?id=${userInfo.getState().candidateID}`, {jobID}) : {message: "fail"}
     },
+
     applyJob: (jobID) => authenApi.post(`/candidate/apply.php?id=${userInfo.getState().candidateID}`, {jobID}),
     getCandidates(config){
         let {skip, take, filter, sort} = config;

@@ -3,7 +3,10 @@ import {authenApi, offlineApi} from "../api";
 import {urlUtils} from "../../common/utils/url-utils";
 
 export const companyApi = {
-
+    getApplied: (companyID) => {
+        return authenApi.get(`/company/applied.php?id=${companyID}`)
+    }
+    ,
     getCompanies(config){
         let {skip, take, filter, sort} = config;
         let {key, value} = sort || {};
