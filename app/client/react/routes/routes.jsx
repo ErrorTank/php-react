@@ -11,6 +11,8 @@ import {CompanyDetailsRoute} from "./common-routes/company-details-route/company
 import {JobDetailsRoute} from "./common-routes/job-route/job-route";
 import {CandidateDetailsRoute} from "./common-routes/candidate-details-route/candidate-details-route";
 import {CandidateLoginRoute} from "./common-routes/candidate-login-route/candidate-login-route";
+import {CompanyLoginRoute} from "./common-routes/company-login-route/company-login-route";
+import {AppliedRoute} from "./authen-routes/applied/applied";
 export const customHistory = createBrowserHistory();
 
 
@@ -31,6 +33,8 @@ export class MainRoute extends React.Component {
                     <Switch>
                         <WithLocationRoute exact path="/" render={props => (<HomeRoute {...props}/>)}/>
                         <WithLocationRoute exact path="/ung-vien" render={props => (<CandidateRoute {...props}/>)}/>
+                        <AuthenRoute exact path="/applied" render={props => (<AppliedRoute {...props}/>)} excludeRoles={['0']}/>
+                        <GuestRoute exact path="/dang-nhap/nha-tuyen-dung" render={props => <CompanyLoginRoute {...props}/>}/>
                         <GuestRoute exact path="/dang-nhap/ung-vien" render={props => <CandidateLoginRoute {...props}/>}/>
                         <WithLocationRoute exact path="/cong-ty" render={props => (<CompanyRoute {...props}/>)}/>
                         <WithLocationRoute exact path="/job/:jobID" render={props => (<JobDetailsRoute {...props}/>)}/>

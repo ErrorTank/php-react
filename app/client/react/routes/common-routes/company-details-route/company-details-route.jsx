@@ -26,6 +26,17 @@ export class CompanyDetailsRoute extends Component {
 
     }
 
+    componentWillReceiveProps(nextProps, nextContext) {
+        if(nextProps.match.params.companyID !== this.props.match.params.companyID){
+            this.setState({loading: true});
+            let companyID =nextProps.match.params.companyID;
+            Promise.all([companyApi.getCompanyDetails(companyID), jobApi.getJobsByCompanyID(companyID)]).then(([details, {data: jobs}]) => {
+                this.setState({details, jobs, loading: false});
+
+            })
+        }
+    }
+
     render() {
         let {loading, jobs, details} = this.state;
         console.log(details)

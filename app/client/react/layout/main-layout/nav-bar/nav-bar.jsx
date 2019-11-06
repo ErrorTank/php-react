@@ -13,9 +13,11 @@ export class Navbar extends React.Component {
     };
 
 
-    handleSignout = () => {
+    handleSignout = (e) => {
+        e.stopPropagation();
         userInfo.setState(null);
         authenCache.clearAuthen();
+        this.forceUpdate();
     };
 
     navs = [
@@ -34,7 +36,7 @@ export class Navbar extends React.Component {
             label: () => {
                 let info = userInfo.getState();
                 console.log(info)
-                return info ? info.fullname : "TÀI KHOẢN"
+                return info ? (info.fullname || info.companyName) : "TÀI KHOẢN"
             },
             dropdownItems: [
                 {
@@ -43,15 +45,27 @@ export class Navbar extends React.Component {
                     cond: () => !authenCache.getAuthen()
                 }, {
                     label: "Nhà tuyển dụng",
-                    url: "/dang-nhap/nha-tuyen-dung",
+                        url: "/dang-nhap/nha-tuyen-dung",
                     cond: () => !authenCache.getAuthen()
+                },{
+                    label: "Hồ sơ công ty",
+                    url: () => "/company/" + userInfo.getState().companyID,
+                    cond: () => authenCache.getAuthen() && userInfo.getState().role === '1'
+                },{
+                    label: "Hồ sơ cá nhân",
+                    url: () => "/candidate/" + userInfo.getState().candidateID,
+                    cond: () => authenCache.getAuthen() && userInfo.getState().role === '0'
+                },{
+                    label: "Danh sách ứng tuyển",
+                    url: "/applied",
+                    cond: () => authenCache.getAuthen() && userInfo.getState().role === '1'
                 },{
                     label: () => {
                         return <div className="sign-out">
                             <button className="btn btn-sign-out"
                                     onClick={this.handleSignout}
                             >
-                                Sign Out
+                                Đăng xuất
                             </button>
                         </div>
                     },
@@ -86,7 +100,7 @@ export class Navbar extends React.Component {
                                         key={each.url || JSON.stringify(each.dropdownItems)}
                                         content={(
                                             <>
-                                                {typeof each.label === "string" ? each.label : each.label()}
+                                                <p className="label">{typeof each.label === "string" ? each.label : each.label()}</p>
                                                 {(each.dropdownItems && (each.dropdownCond ? each.dropdownCond() : true)) && (
                                                     <i className="fas fa-angle-down" style={{marginLeft: "8px"}}></i>
                                                 )}
@@ -98,10 +112,11 @@ export class Navbar extends React.Component {
                                                     <div className="dropdown-panel">
                                                         {each.dropdownItems.map((item, i) => item.cond() ? (
                                                             <div key={i}
-                                                                 className={classnames("dropdownItem", {active: item.isActive ? item.isActive() : item.url ? item.url === customHistory.location.pathname : false})}
+                                                                 className={classnames("dropdownItem", {active: item.isActive ? item.isActive() : item.url ? (typeof item.url === 'string' ? item.url : item.url()) === customHistory.location.pathname : false})}
                                                                  onClick={(e) => {
+
                                                                      e.stopPropagation();
-                                                                     customHistory.push(item.url)
+                                                                     customHistory.push(typeof item.url === 'string' ? item.url : item.url())
                                                                  }}
                                                             >
                                                                 {typeof item.label === "string" ? item.label : item.label()}

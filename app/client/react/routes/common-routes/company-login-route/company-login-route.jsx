@@ -8,7 +8,7 @@ import {userInfo} from "../../../../common/states/common";
 import {authenCache} from "../../../../common/cache/authen-cache";
 import {customHistory} from "../../routes";
 
-export class CandidateLoginRoute extends KComponent {
+export class CompanyLoginRoute extends KComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,7 +19,7 @@ export class CandidateLoginRoute extends KComponent {
     }
 
     handleLogin = () => {
-        accountApi.login(this.state, '0').then(result => {
+        accountApi.login(this.state, '1').then(result => {
 
             authenCache.setAuthen(result.token, {expires: 30});
             return userInfo.setState(result.data).then(() => customHistory.push("/"));
@@ -32,14 +32,14 @@ export class CandidateLoginRoute extends KComponent {
         let {username, password, error} = this.state;
         return (
             <PageTitle
-                title={`Ứng viên đăng nhâp`}
+                title={`Nhà tuyển dụng đăng nhâp`}
             >
                 <MainLayout>
                     <div className="candidate-login-route">
                         <div className="container">
                             <div className="login-route-wrapper">
                                 <div className="fancy-header">
-                                    <p className="content">Ứng viên đăng nhập</p>
+                                    <p className="content">Nhà tuyển dụng đăng nhâp</p>
                                     <p className="underline"></p>
                                 </div>
                                 <div className="common-form">

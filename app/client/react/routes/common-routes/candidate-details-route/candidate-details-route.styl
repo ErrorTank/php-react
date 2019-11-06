@@ -64,6 +64,7 @@
         width 140px
         position absolute
         height 140px
+        z-index 2
         top 50%
         left 20px
         transform translateY(-50%)
@@ -90,8 +91,15 @@
         height 100px
         display flex
         justify-content center
+        position relative
         flex-direction column
         background-color #0091cf
+        i{
+          position absolute
+          right 20px
+          top 20px
+          cursor pointer
+        }
         .name{
 
           font-size 22px

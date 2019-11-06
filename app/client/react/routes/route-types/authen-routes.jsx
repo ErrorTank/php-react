@@ -36,7 +36,7 @@ export class GuestRoute extends KComponent {
   }
 }
 
-export const AuthenRoute = ({component: Component, excludeRoles = null, ...rest}) => {
+export const AuthenRoute = ({render, component: Component, excludeRoles = null, ...rest}) => {
   let getComp = (props) => {
     let info = userInfo.getState();
     if (!authenCache.getAuthen()) {
@@ -63,7 +63,9 @@ export const AuthenRoute = ({component: Component, excludeRoles = null, ...rest}
     // )
     return (
       <AuthenCheck {...props}>
-        <Component {...props}/>
+        {render ? render(props) : (
+            <Component {...props} />
+        )}
       </AuthenCheck>
     )
   };

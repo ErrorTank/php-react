@@ -1,3 +1,18 @@
+.apply-btn{
+  background-color #f9c855
+  font-size 15px
+  font-weight 550
+  color white
+  padding 8px 20px
+  margin-top 10px
+  &.applied-btn{
+    background-color success !important
+    pointer-events none
+  }
+  &:not(.applied-btn):hover{
+    background-color darken(#f9c855, 10%)
+  }
+}
 .blue-badge{
   background-color rgba(32,160,255,.1)
   border 1px solid rgba(32,160,255,.2)

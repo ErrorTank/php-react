@@ -15,9 +15,11 @@ export const sendRequest = ({url, type, data, headers, beforeSend, onError}) => 
       }
     },
     success: (data) => {
+      console.log("cac")
       resolve(data);
     },
     error: (rsp, status, error) => {
+      console.log("me")
       reject(rsp.responseJSON);
       onError && onError(rsp.responseJSON);
     }

@@ -79,6 +79,32 @@
     }
 
 
+public function apply($jobID){
+
+    $query = 'insert into apply (`applyID`,`jobID`,`candidateID`) values (:id, :jobID, :candidateID)';
+    $applyID = gen_uuid();
+     $stmt = $this->conn->prepare($query);
+      $stmt->bindParam(":id", $applyID);
+     $stmt->bindParam(":jobID", $jobID);
+     $stmt->bindParam(":candidateID", $this->candidateID);
+     if($stmt->execute()){
+        return true;
+     }
+     return false;
+
+
+}
+
+public function checkApply($jobID){
+     $query = 'select * from apply where jobID = :jobID and candidateID = :candidateID';
+      $stmt = $this->conn->prepare($query);
+          $stmt->bindParam(":jobID", $jobID);
+          $stmt->bindParam(":candidateID", $this->candidateID);
+          $stmt->execute();
+
+          $result = $stmt->fetch(PDO::FETCH_ASSOC);
+          return $result;
+}
 
 public function getDetails() {
 

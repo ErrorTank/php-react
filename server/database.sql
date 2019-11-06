@@ -45,6 +45,13 @@ CREATE TABLE `tuyendung`.`Company`(
     UNIQUE(`companyID`),
     UNIQUE(`email`)
 ) ENGINE = INNODB;
+CREATE TABLE `tuyendung`.`apply`(
+    `applyID` nvarchar(10) not null,
+    `candidateID` nvarchar(10) not null,
+    `jobID` nvarchar(10) not null,
+    PRIMARY KEY(`applyID`),
+        UNIQUE(`applyID`)
+)ENGINE = INNODB;
 CREATE TABLE `tuyendung`.`Job`(
     `jobID` NVARCHAR(10) NOT NULL,
     `label` NVARCHAR(100) NOT NULL,

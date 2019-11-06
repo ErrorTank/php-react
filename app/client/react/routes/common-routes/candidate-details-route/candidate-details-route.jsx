@@ -7,6 +7,7 @@ import {formatMoney} from "../../../../common/utils/common";
 import moment from "moment";
 import {customHistory} from "../../routes";
 import {candidateApi} from "../../../../api/common/candidate-api";
+import {userInfo} from "../../../../common/states/common";
 
 export class CandidateDetailsRoute extends Component {
     constructor(props) {
@@ -15,14 +16,21 @@ export class CandidateDetailsRoute extends Component {
             loading: true,
             candidate: null
         };
+
         candidateApi.getCandidateDetails(props.match.params.candidateID).then(candidate => this.setState({candidate: {...candidate}, loading: false}));
 
     }
 
-
+    componentWillReceiveProps(nextProps, nextContext) {
+        if(nextProps.match.params.candidateID !== this.props.match.params.candidateID){
+            this.setState({loading: true});
+            candidateApi.getCandidateDetails(nextProps.match.params.candidateID).then(candidate => this.setState({candidate: {...candidate}, loading: false}));
+        }
+    }
 
     render() {
         let {loading, candidate} = this.state;
+        let info = userInfo.getState();
         return (
             <PageTitle
                 title={loading ? `Loading...` : "Hồ sơ ứng viên " + candidate.fullname}
@@ -42,6 +50,8 @@ export class CandidateDetailsRoute extends Component {
                                                 </div>
                                             </div>
                                             <div className={"upper"}>
+                                                {(info && info.role === '0' && info.candidateID === this.props.match.params.candidateID) && <i className="fas fa-edit"></i>}
+
                                                 <p className="name">{candidate.fullname}</p>
                                                 <p className="label">{candidate.label}</p>
                                             </div>

@@ -1,6 +1,6 @@
 .nav-bar {
   width 100%
-  z-index 3
+  z-index 5
   background-color #0091cf
   color #6c757e
   box-shadow: 0 1px 4px #C9C9C9
@@ -59,6 +59,7 @@
         position relative
         font-size 14px
         height 100%
+        position relative
         font-weight 550
         color white
         .full-name {
@@ -67,16 +68,25 @@
           margin-right 6px
           display inline
         }
-
+        .label{
+          overflow hidden
+          max-width 180px
+          text-overflow ellipsis
+          white-space nowrap
+          padding-right 10px
+        }
         i {
-          display inline-block
-          vertical-align baseline
+          position absolute
+          right 10px
+          top 50%
+          transform translateY(-50%)
         }
 
         .dropdown-panel {
           position absolute
           background-color white
           left 0
+          z-index 3
           border-radius 0 0 3px 3px
           width 220px
           padding 14px 0

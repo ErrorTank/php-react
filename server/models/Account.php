@@ -15,13 +15,13 @@
 
 
     public function getDetails(){
-        $query = 'SELECT * from ' . $this->table . ' a inner join candidate c on a.accountID = c.accountID where a.username = :username';
+        $query = $this->role  == '0' ?  'SELECT * from ' . $this->table . ' a inner join candidate c on a.accountID = c.accountID where a.username = :username' : 'SELECT * from ' . $this->table . ' a inner join company c on a.accountID = c.accountID where a.username = :username';
         $stmt = $this->conn->prepare($query);
 
                  $stmt->bindParam(":username", $this->username);
          $stmt->execute();
                  $result = $stmt->fetch(PDO::FETCH_ASSOC);
-          return array(
+          return $this->role == '0' ? array(
             'accountID' => $result['accountID'],
                         'username' => $result['username'],
 
@@ -32,10 +32,20 @@
                                          "address" =>$result['address'],
                                          "phone" =>$result['phone']
 
-           );
+           ) :array(
+                          'accountID' => $result['accountID'],
+                                      'username' => $result['username'],
+
+                                      'role' => $result['role'],
+                                      "companyID" =>$result['companyID'],
+                                      "email" =>$result['email'],
+                                           "companyName" => $result['companyName'],
+                                           "address" =>$result['address'],
+                                           "phone" =>$result['phone']
+                       ) ;
     }
     public function login(){
-        $query = 'SELECT * from ' . $this->table . ' a inner join candidate c on a.accountID = c.accountID where a.username = :username and a.password = :password';
+        $query = $this->role == '0' ?  'SELECT * from ' . $this->table . ' a inner join candidate c on a.accountID = c.accountID where a.username = :username and a.password = :password' : 'SELECT * from ' . $this->table . ' a inner join company c on a.accountID = c.accountID where a.username = :username and a.password = :password';
         $stmt = $this->conn->prepare($query);
 
          $stmt->bindParam(":username", $this->username);
@@ -43,7 +53,7 @@
          $stmt->execute();
          $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-         return $result ? array(
+         return $result ? $this->role == '0' ? array(
             'accountID' => $result['accountID'],
             'username' => $result['username'],
 
@@ -53,6 +63,16 @@
                  "fullname" => $result['fullname'],
                  "address" =>$result['address'],
                  "phone" =>$result['phone']
+         ) : array(
+            'accountID' => $result['accountID'],
+                        'username' => $result['username'],
+
+                        'role' => $result['role'],
+                        "companyID" =>$result['companyID'],
+                        "email" =>$result['email'],
+                             "companyName" => $result['companyName'],
+                             "address" =>$result['address'],
+                             "phone" =>$result['phone']
          ) : false;
     }
 

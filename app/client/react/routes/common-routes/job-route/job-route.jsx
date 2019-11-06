@@ -7,17 +7,31 @@ import {Badge} from "../../../common/badge/badge";
 import {formatMoney} from "../../../../common/utils/common";
 import moment from "moment";
 import {customHistory} from "../../routes";
+import {authenCache} from "../../../../common/cache/authen-cache";
+import classnames from "classnames";
+import {candidateApi} from "../../../../api/common/candidate-api";
+import {userInfo} from "../../../../common/states/common";
 
 export class JobDetailsRoute extends Component {
     constructor(props) {
         super(props);
         this.state = {
             loading: true,
-            job: null
+            job: null,
+            isApplied: false
         };
-        jobApi.getJobDetails(props.match.params.jobID).then(job => this.setState({job: {...job, contact: JSON.parse(job.contact)}, loading: false}));
+
+        Promise.all([jobApi.getJobDetails(props.match.params.jobID), candidateApi.checkApplied(props.match.params.jobID)])
+        .then(([job, result]) => this.setState({job: {...job, contact: JSON.parse(job.contact)}, loading: false, isApplied: result.message === 'success'}));
 
     }
+
+    applyJob = () => {
+        candidateApi.applyJob(this.props.match.params.jobID).then(() => {
+            console.log("cac")
+            this.setState({isApplied: true});
+        }).catch(err => console.log(err))
+    };
 
     renderContactTitle = title => {
         let matcher = {
@@ -30,8 +44,8 @@ export class JobDetailsRoute extends Component {
     };
 
     render() {
-        let {loading, job} = this.state;
-        console.log(job);
+        let {loading, job, isApplied} = this.state;
+        console.log(isApplied);
         return (
             <PageTitle
                 title={loading ? `Loading...` : "Tuyển " + job.label}
@@ -67,6 +81,12 @@ export class JobDetailsRoute extends Component {
                                             <div className="more"><span className="label">Hạn nộp hồ sơ:</span><span
                                                 className="deadline">{moment(new Date(job.deadline)).format("DD/MM/YYYY")}</span>
                                             </div>
+                                            {(authenCache.getAuthen() && userInfo.getState().role === '0') ?
+                                                <button className={classnames("btn apply-btn", {"applied-btn": isApplied})} disabled={isApplied} onClick={this.applyJob}>
+                                                    {isApplied ? "Đã ứng tuyển" : "Ứng tuyển ngay"}
+                                                </button> :  null
+                                            }
+
                                         </div>
                                     </div>
                                     <div className="j-body">
